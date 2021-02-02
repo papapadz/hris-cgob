@@ -12,7 +12,6 @@ class Plantilla extends Model
         'position_id',
         'plantilla',
         'creationdate',
-    
     ];
     
     

@@ -15,6 +15,7 @@ Route::group(['middleware' => ['get.menu']], function () {
     
     Route::prefix('ajax')->group(function () { 
         Route::get('get/address','AjaxController@getAddress');
+        Route::get('get/plantilla','AjaxController@getPlantilla');
     });
 
     Route::resources([

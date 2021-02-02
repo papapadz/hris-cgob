@@ -15,9 +15,11 @@ class CreateSalaryScheduleTable extends Migration
     {
         Schema::create('salary_schedule', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('tranche');
             $table->integer('sg');
             $table->integer('step');
             $table->decimal('value',10,2);
+            $table->date('effective_date');
             $table->timestamps();
         });
     }
