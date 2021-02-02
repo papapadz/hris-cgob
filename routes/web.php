@@ -13,6 +13,10 @@
 
 Route::group(['middleware' => ['get.menu']], function () {
     
+    Route::prefix('ajax')->group(function () { 
+        Route::get('get/address','AjaxController@getAddress');
+    });
+
     Route::resources([
         'employees' => 'EmployeeController'
     ]);

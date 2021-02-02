@@ -81,7 +81,8 @@
     "cropperjs": "^1.5.7",
     "jquery": "^3.5.1",
     "laravel-mix": "^5.0.4",
-    "perfect-scrollbar": "1.5.0"
+    "perfect-scrollbar": "1.5.0",
+    "vue-select": "^3.11.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
