@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Employee;
-use App\Models\Appointment;
 
-class EmployeeController extends Controller
+class EducationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +13,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        return view('pages.employee.index')->with([
-            'employees' => Employee::orderBy('lastname')->paginate(10)
-        ]);
+        //
     }
 
     /**
@@ -27,7 +23,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('pages.employee.create');
+        //
     }
 
     /**
@@ -38,13 +34,7 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $employee = Employee::create($request->all());
-        Appointment::create($request->all());
-
-        $filename = FileController::upload($request->file('image'),'img');
-        $employee->update([
-            'img_url' => $filename
-        ]);
+        //
     }
 
     /**
@@ -55,11 +45,7 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        return view('pages.employee.profile')
-            ->with([
-                'employee' => Employee::find($id),
-                'appointments' => listAppointments($id)
-            ]);
+        //
     }
 
     /**
