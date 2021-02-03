@@ -41,10 +41,6 @@ class Employee extends Model
 
     /* ************************ ACCESSOR ************************* */
 
-    public function name() {
-        return $this->lastname.', '.$this->firstname.' '.$this->middlename;
-    }
-
     public function appointments() {
         return $this->hasOne(Appointment::class,'emp_id','emp_id')->orderBy('startdate','desc')->with(['department','plantilla']);
     }
