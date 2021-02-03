@@ -17,7 +17,7 @@ class CreateDepartmentsTable extends Migration
             $table->bigIncrements('id');
             $table->string('department',100)->unique();
             $table->bigInteger('division_id');
-            $table->string('deparmenthead_id',20);
+            $table->string('departmenthead_id',20);
             $table->timestamps();
             $table->softDeletes();
         });
