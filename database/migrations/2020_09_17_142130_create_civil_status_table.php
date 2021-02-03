@@ -16,7 +16,7 @@ class CreateCivilStatusTable extends Migration
         Schema::create('civil_status', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('civil_status',50);
-            $table->string('remarks',50)->nullable();
+            $table->string('remarks',255)->nullable();
             $table->timestamps();
         });
     }
