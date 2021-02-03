@@ -19,7 +19,8 @@ Route::group(['middleware' => ['get.menu']], function () {
     });
 
     Route::resources([
-        'employees' => 'EmployeeController'
+        'employees' => 'EmployeeController',
+        'appointments' => 'AppointmentController'
     ]);
     
     Route::get('/', function () { return view('dashboard.homepage'); });

@@ -1,5 +1,13 @@
 @extends('dashboard.base')
 
+@section('css')
+<style>
+  label {
+    font-weight: bold;
+  }
+</style>
+@endsection
+
 @section('content')
 <div class="container-fluid">
   <div class="animated fadeIn">
@@ -26,6 +34,12 @@
 
                   <div class="tab-pane" id="employment" role="tabpanel">
                     @include('pages.employee.include.employment-info')
+                    <div class="form-group row">
+                      <div class="col-12">
+                        <button class="btn btn-block btn-success" type="submit">{{ __('Add') }}</button>
+                        <a href="{{ route('employees.index') }}" class="btn btn-block btn-primary">{{ __('Return') }}</a> 
+                      </div>
+                    </div>
                   </div>
                 </div>
             </form>

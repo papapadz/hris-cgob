@@ -66,10 +66,3 @@
             </select>
         </div>
     </div>
-
-    <div class="form-group row">
-        <div class="col-12">
-          <button class="btn btn-block btn-success" type="submit">{{ __('Add') }}</button>
-          <a href="{{ route('employees.index') }}" class="btn btn-block btn-primary">{{ __('Return') }}</a> 
-        </div>
-      </div>

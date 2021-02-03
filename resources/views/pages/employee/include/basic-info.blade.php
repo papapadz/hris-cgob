@@ -1,40 +1,48 @@
     <div class="form-group row">
         <div class="col-md-6">
             <label>Employee ID Number</label>
-            <input class="form-control" type="text" placeholder="{{ __('Employee ID Number') }}" name="emp_id" required autofocus>
+            <input class="form-control" value="{{ $employee->emp_id ?? null }}" type="text" placeholder="{{ __('Employee ID Number') }}" name="emp_id" required autofocus>
         </div>
     </div>
 
     <div class="form-group row">
         <div class="col-md-6">
             <label>Last Name</label>
-            <input class="form-control" type="text" placeholder="{{ __('Last Name') }}" name="lastname" required>
+            <input class="form-control" value="{{ $employee->lastname ?? null }}" type="text" placeholder="{{ __('Last Name') }}" name="lastname" required>
         </div>
         <div class="col-md-6">
             <label>First Name</label>
-            <input class="form-control" type="text" placeholder="{{ __('First Name') }}" name="firstname" required>
+            <input class="form-control" value="{{ $employee->firstname ?? null }}" type="text" placeholder="{{ __('First Name') }}" name="firstname" required>
         </div>
     </div>
 
     <div class="form-group row">
         <div class="col-md-6">
             <label>Middle Name</label>
-            <input class="form-control" type="text" placeholder="{{ __('Middle Name') }}" name="middlename">
+            <input class="form-control" value="{{ $employee->middlename ?? null }}" type="text" placeholder="{{ __('Middle Name') }}" name="middlename">
         </div>
         <div class="col-md-6">
             <label>Extension</label>
-            <input class="form-control" type="text" placeholder="{{ __('Middle Name') }}" name="extension">
+            <input class="form-control" value="{{ $employee->extension ?? null }}" type="text" placeholder="{{ __('Middle Name') }}" name="extension">
         </div>
     </div>
 
     <div class="form-group row">
         <div class="col-md-6">
             <label>Date of Birth</label>
-        <input type="date" class="form-control" name="birthdate" required/>
+            <input type="date" class="form-control" 
+                @isset($employee)
+                    value="{{ $employee->birthdate->format('Y-m-d') ?? null }}" 
+                @endisset
+                 name="birthdate" required/>
         </div>
         <div class="col-md-6">
             <label>Place of Birth</label>
-        <input class="form-control" type="text" placeholder="{{ __('Place of Birth') }}" name="birthplace" required>
+            <input class="form-control" type="text" 
+                @isset($employee)
+                    value="{{ $employee->birthplace }}" placeholder="{{ __('Place of Birth') }}"
+                @endisset
+                 name="birthplace" required>
         </div>
     </div>
 
@@ -42,17 +50,53 @@
         <div class="col-md-6">
             <label>Gender</label>
             <select class="form-control" name="gender">
-                <option value="M">Male</option>
-                <option value="F">Female</option>
+                <option
+                    @isset($employee)
+                        @if($employee->gender=='M')
+                            selected
+                        @endif
+                    @endisset
+                     value="M">Male</option>
+                <option
+                    @isset($employee)
+                        @if($employee->gender=='F')
+                            selected
+                        @endif
+                    @endisset
+                     value="F">Female</option>
             </select>
         </div>
         <div class="col-md-6">
             <label>Blood Type</label>
             <select class="form-control" name="bloodtype">
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="AB">AB</option>
-                <option value="O">O</option>
+                <option
+                    @isset($employee)
+                        @if($employee->bloodtype=='A')
+                            selected
+                        @endif
+                    @endisset
+                 value="A">A</option>
+                 <option
+                    @isset($employee)
+                        @if($employee->bloodtype=='B')
+                            selected
+                        @endif
+                    @endisset
+                 value="B">B</option>
+                 <option
+                    @isset($employee)
+                        @if($employee->bloodtype=='AB')
+                            selected
+                        @endif
+                    @endisset
+                 value="AB">AB</option>
+                 <option
+                    @isset($employee)
+                        @if($employee->bloodtype=='O')
+                            selected
+                        @endif
+                    @endisset
+                 value="O">O</option>
             </select>
         </div>
     </div>
@@ -62,7 +106,13 @@
             <label>Civil Status</label>
             <select id="ctzn" class="form-control" name="civilstat_id">
                 @foreach(getCivilStatus() as $civilstat_id)
-                    <option value="{{ $civilstat_id->id }}">{{ $civilstat_id->civil_status }}</option>
+                    <option 
+                        @if(isset($employee))
+                            @if($employee->civilstat_id==$civilstat_id->id)
+                                selected
+                            @endif
+                        @endif
+                         value="{{ $civilstat_id->id }}">{{ $civilstat_id->civil_status }}</option>
                 @endforeach
             </select>
         </div>
@@ -70,7 +120,13 @@
             <label>Citizenship</label>
             <select id="ctzn" class="form-control"name="citizenship_id">
                 @foreach(getCitizenships() as $citizenship)
-                    <option value="{{ $citizenship->id }}">{{ $citizenship->citizenship }}</option>
+                    <option
+                        @if(isset($employee))
+                            @if($employee->citizenship_id==$citizenship->id)
+                                selected
+                            @endif
+                        @endif
+                     value="{{ $citizenship->id }}">{{ $citizenship->citizenship }}</option>
                 @endforeach
             </select>
         </div>
@@ -79,17 +135,19 @@
     <div class="form-group row">
         <div class="col-md-6">
             <label>Height (in meters)</label>
-            <input type="number" step="0.1" class="form-control" name="height" required/>
+            <input type="number" step="0.1" value="{{ $employee->height ?? null }}" class="form-control" name="height" required/>
         </div>
         <div class="col-md-6">
             <label>Weight (in Kilograms)</label>
-            <input type="number" step="0.1" class="form-control" name="weight" required/>
+            <input type="number" step="0.1" value="{{ $employee->weight ?? null }}" class="form-control" name="weight" required/>
         </div>
     </div>
 
+    @if(!isset($employee))
     <div class="form-group row">
         <div class="col-md-6">
             <label>Picture</label>
             <input type="file" class="form-control" name="image" required/>
         </div>
     </div>
+    @endif

@@ -15,39 +15,39 @@
                         </div>
                         <br>
                         <table class="table table-responsive-sm table-striped">
-                        <thead>
-                          <tr>
-                            <th>Employee ID</th>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Department</th>
-                            <th>Status</th>
-                            <th></th>
-                            <th></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          @foreach($employees as $employee)
+                          <thead>
                             <tr>
-                              <td><strong>{{ $employee->emp_id }}</strong></td>
-                              <td>{{ getEmployeeName($employee->emp_id) }}</td>
-                              <td>{{ $employee->appointments->plantilla->position->position }}</td>
-                              <td>{{ $employee->appointments->department->department }}</td>
-                              <td>{{ $employee->appointments->employmentStat->employmenttype }}</td>
-                              <td>
-                                <a href="{{ url('/employee/' . $employee->emp_id) }}" class="btn btn-block btn-primary">View</a>
-                              </td>
-                              <td>
-                                <form action="{{ route('employees.destroy', $employee->emp_id ) }}" method="POST">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button class="btn btn-block btn-danger">Delete</button>
-                                </form>
-                              </td>
+                              <th>Employee ID</th>
+                              <th>Name</th>
+                              <th>Position</th>
+                              <th>Department</th>
+                              <th>Status</th>
+                              <th></th>
+                              <th></th>
                             </tr>
-                          @endforeach
-                        </tbody>
-                      </table>
+                          </thead>
+                          <tbody>
+                            @foreach($employees as $employee)
+                              <tr>
+                                <td><strong>{{ $employee->emp_id }}</strong></td>
+                                <td>{{ getEmployeeName($employee->emp_id) }}</td>
+                                <td>{{ $employee->appointments->plantilla->position->position }}</td>
+                                <td>{{ $employee->appointments->department->department }}</td>
+                                <td>{{ $employee->appointments->employmentStat->employmenttype }}</td>
+                                <td>
+                                  <a href="{{ url('/employees/' . $employee->emp_id) }}" class="btn btn-block btn-primary">View</a>
+                                </td>
+                                <td>
+                                  <form action="{{ route('employees.destroy', $employee->emp_id ) }}" method="POST">
+                                      @method('DELETE')
+                                      @csrf
+                                      <button class="btn btn-block btn-danger">Delete</button>
+                                  </form>
+                                </td>
+                              </tr>
+                            @endforeach
+                          </tbody>
+                        </table>
                       {{ $employees->links() }}
                     </div>
                 </div>
