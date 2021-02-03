@@ -43,4 +43,8 @@ class Appointment extends Model
     public function employmentStat() {
         return $this->hasOne(EmploymentType::class,'id','appointmenttype_id');
     }
+
+    public function employee() {
+        return $this->belongsTo(Employee::class,'emp_id');
+    }
 }
