@@ -10,9 +10,6 @@ class Employee extends Model
     use SoftDeletes;
 
     protected $primaryKey = 'emp_id';
-    protected $casts = [
-        'emp_id'=>'text',
-    ];
     
     protected $fillable = [
         'emp_id',
@@ -49,7 +46,7 @@ class Employee extends Model
     }
 
     public function appointments() {
-        return $this->hasOne(Appointment::class,'emp_id','emp_id')->orderBy('start_date','desc')->with(['department','plantilla']);
+        return $this->hasOne(Appointment::class,'emp_id','emp_id')->orderBy('startdate','desc')->with(['department','plantilla']);
     }
 
     public function address() {
