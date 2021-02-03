@@ -18,7 +18,6 @@ class Appointment extends Model
         'startdate',
         'enddate',
         'department_id',
-    
     ];
     
     
@@ -38,7 +37,7 @@ class Appointment extends Model
     }
 
     public function plantilla() {
-        return $this->hasOne(plantilla::class,'id','plantilla_id')->wth('position');
+        return $this->hasOne(Plantilla::class,'id','plantilla_id')->with('position');
     }
 
     public function employmentStat() {
