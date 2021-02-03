@@ -33,15 +33,17 @@ class DatabaseSeeder extends Seeder
             // ExampleSeeder::class,
             // BREADSeeder::class,
             // EmailSeeder::class,
-            //CivilStatusesSeeder::class,
-            //CitizenshipsSeeder::class,
+            // CivilStatusesSeeder::class,
+            // CitizenshipsSeeder::class,
             // LicensesSeeder::class,
             // SchoolsSeeder::class,
-            // AppointmentTypesSeeder::class,
             // DepartmentsSeeder::class,
             // EmploymentTypesSeeder::class,
             // PlantillaSeeder::class,
             // PositionsSeeder::class,
+            // AppointmentTypesSeeder::class,
+            // AppointmentsSeeder::class,
+            // EmployeeSeeder::class
         ]);
     }
 }
