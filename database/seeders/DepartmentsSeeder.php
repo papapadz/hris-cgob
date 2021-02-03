@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Department;
+use App\Models\User;
 
 class DepartmentsSeeder extends Seeder
 {
@@ -40,10 +41,13 @@ class DepartmentsSeeder extends Seeder
             'Office of the City Veterinarian'
         ];
 
+        $users = User::select('emp_id')->get();
+
         foreach($data as $k => $d) {
             Department::create([
-                'department' => $d['office'],
-                ''
+                'department' => $data[$k],
+                'division_id' => 1,
+                'departmenthead_id' => $users[rand(0,count($users)-1)]->emp_id
             ]);
         }
     }
