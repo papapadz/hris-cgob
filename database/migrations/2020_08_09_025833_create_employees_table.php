@@ -18,7 +18,7 @@ class CreateEmployeesTable extends Migration
             $table->string('lastname',50);
             $table->string('firstname',50);
             $table->string('middlename',50)->nullable();
-            $table->string('extension',10);
+            $table->string('extension',10)->nullable();
             $table->date('birthdate');
             $table->string('birthplace',100);
             $table->string('address_id',10);
@@ -28,7 +28,7 @@ class CreateEmployeesTable extends Migration
             $table->decimal('height');
             $table->decimal('weight');
             $table->string('bloodtype',3);
-            $table->string('image_url',150);
+            $table->string('image_url',255)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
