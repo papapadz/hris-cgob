@@ -1,4 +1,3 @@
-<form id="employment-info">
     <div class="form-group row">
         <div class="col-md-6">
             <label>Position</label>
@@ -45,7 +44,7 @@
         </div>
         <div class="col-md-6">
             <label>Nature of Appointment</label>
-            <select name="employmenttype_id" class="form-control" required>
+            <select name="appointmenttype_id" class="form-control" required>
                 @foreach(getAppointmentTypes() as $appointment)
                     <option value="{{ $appointment->id }}">{{ $appointment->appointmenttype }}</option>
                 @endforeach
@@ -60,12 +59,17 @@
         </div>
         <div class="col-md-6">
             <label>Department</label>
-            <select name="employmenttype_id" class="form-control" required>
+            <select name="department_id" class="form-control" required>
                 @foreach(getDepartments() as $department)
                     <option value="{{ $department->id }}">{{ $department->department }}</option>
                 @endforeach
             </select>
         </div>
     </div>
-    
-</form>
+
+    <div class="form-group row">
+        <div class="col-12">
+          <button class="btn btn-block btn-success" type="submit">{{ __('Add') }}</button>
+          <a href="{{ route('employees.index') }}" class="btn btn-block btn-primary">{{ __('Return') }}</a> 
+        </div>
+      </div>

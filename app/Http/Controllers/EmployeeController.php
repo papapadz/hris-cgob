@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Employee;
+use App\Models\Appointment;
 
 class EmployeeController extends Controller
 {
@@ -15,7 +16,7 @@ class EmployeeController extends Controller
     public function index()
     {
         return view('pages.employee.index')->with([
-            'employees' => Employee::paginate(10)
+            'employees' => Employee::orderBy('lastname')->paginate(10)
         ]);
     }
 
@@ -37,7 +38,13 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $employee = Employee::create($request->all());
+        Appointment::create($request->all());
+
+        $filename = FileController::upload($request->file('image'),'img');
+        $employee->update([
+            'img_url' => $filename
+        ]);
     }
 
     /**

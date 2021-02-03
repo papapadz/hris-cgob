@@ -1,4 +1,3 @@
-<form id="address-info">
     <div class="form-group row">
         <div class="col-12">
             <label>Province</label>
@@ -24,4 +23,3 @@
             <select id="barangay" name="address_id" class="form-control"></select>
         </div>
     </div>
-</form>

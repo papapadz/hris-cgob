@@ -1,5 +1,3 @@
-<form id="basic-info">
-    @csrf
     <div class="form-group row">
         <div class="col-md-6">
             <label>Employee ID Number</label>
@@ -42,8 +40,35 @@
 
     <div class="form-group row">
         <div class="col-md-6">
+            <label>Gender</label>
+            <select class="form-control" name="gender">
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label>Blood Type</label>
+            <select class="form-control" name="bloodtype">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="AB">AB</option>
+                <option value="O">O</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label>Civil Status</label>
+            <select id="ctzn" class="form-control" name="civilstat_id">
+                @foreach(getCivilStatus() as $civilstat_id)
+                    <option value="{{ $civilstat_id->id }}">{{ $civilstat_id->civil_status }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-md-6">
             <label>Citizenship</label>
-            <select id="ctzn" class="form-control"name="status_id">
+            <select id="ctzn" class="form-control"name="citizenship_id">
                 @foreach(getCitizenships() as $citizenship)
                     <option value="{{ $citizenship->id }}">{{ $citizenship->citizenship }}</option>
                 @endforeach
@@ -64,8 +89,7 @@
 
     <div class="form-group row">
         <div class="col-md-6">
-            <label>Blood Type</label>
-            <input type="text" class="form-control" name="bloodtype" required/>
+            <label>Picture</label>
+            <input type="file" class="form-control" name="image" required/>
         </div>
     </div>
-</form>

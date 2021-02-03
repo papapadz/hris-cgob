@@ -30,10 +30,10 @@
                           @foreach($employees as $employee)
                             <tr>
                               <td><strong>{{ $employee->emp_id }}</strong></td>
-                              <td><strong>{{ $employee->lastname }}</strong></td>
-                              <td>{{ $employee->appointments->plantilla->position }}</td>
-                              <td>{{ $employee->appointments->department }}</td>
-                              <td>{{ $employee->employmentStat }}</td>
+                              <td>{{ getEmployeeName($employee->emp_id) }}</td>
+                              <td>{{ $employee->appointments->plantilla->position->position }}</td>
+                              <td>{{ $employee->appointments->department->department }}</td>
+                              <td>{{ $employee->appointments->employmentStat->employmenttype }}</td>
                               <td>
                                 <a href="{{ url('/employee/' . $employee->emp_id) }}" class="btn btn-block btn-primary">View</a>
                               </td>
