@@ -25,4 +25,8 @@ class Plantilla extends Model
     public function position() {
         return $this->hasOne(Position::class,'id','position_id');
     }
+
+    public function appointment() {
+        return $this->belongsTo(Appointment::class,'plantilla_id','id');
+    }
 }
