@@ -30,7 +30,7 @@
                           @foreach($employees as $employee)
                             <tr>
                               <td><strong>{{ $employee->emp_id }}</strong></td>
-                              <td><strong>{{ $employee->name }}</strong></td>
+                              <td><strong>{{ $employee->lastname }}</strong></td>
                               <td>{{ $employee->appointments->plantilla->position }}</td>
                               <td>{{ $employee->appointments->department }}</td>
                               <td>{{ $employee->employmentStat }}</td>
