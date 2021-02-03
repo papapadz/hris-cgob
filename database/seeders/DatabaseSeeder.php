@@ -27,15 +27,21 @@ class DatabaseSeeder extends Seeder
         */
 
         $this->call([
-            UsersAndNotesSeeder::class,
-            MenusTableSeeder::class,
-            FolderTableSeeder::class,
-            ExampleSeeder::class,
-            BREADSeeder::class,
-            EmailSeeder::class,
-            CivilStatusesSeeder::class,
-            LicensesSeeder::class,
-            SchoolsSeeder::class
+            // UsersAndNotesSeeder::class,
+            // MenusTableSeeder::class,
+            // FolderTableSeeder::class,
+            // ExampleSeeder::class,
+            // BREADSeeder::class,
+            // EmailSeeder::class,
+            //CivilStatusesSeeder::class,
+            //CitizenshipsSeeder::class,
+            // LicensesSeeder::class,
+            // SchoolsSeeder::class,
+            // AppointmentTypesSeeder::class,
+            // DepartmentsSeeder::class,
+            // EmploymentTypesSeeder::class,
+            // PlantillaSeeder::class,
+            // PositionsSeeder::class,
         ]);
     }
 }
