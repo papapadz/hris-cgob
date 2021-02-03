@@ -37,6 +37,8 @@
     <!-- Icons-->
     <link href="{{ asset('css/free.min.css') }}" rel="stylesheet"> <!-- icons -->
     <link href="{{ asset('css/flag-icon.min.css') }}" rel="stylesheet"> <!-- icons -->
+    <!-- Datatable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
     <!-- Main styles for this application-->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
@@ -80,10 +82,11 @@
       </div>
     </div>
 
-
-
-    <!-- CoreUI and necessary plugins-->
+    <!-- JQuery-->
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <!-- Datatable-->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+    <!-- CoreUI and necessary plugins-->
     <script src="{{ asset('js/coreui.bundle.min.js') }}"></script>
     <script src="{{ asset('js/coreui-utils.js') }}"></script>
     @yield('javascript')
