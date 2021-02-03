@@ -11,6 +11,12 @@ use App\Models\Employee;
 use App\Models\AppointmentType;
 use App\Models\Department;
 
+if (! function_exists('getEmployeeName')) {
+  function getEmployeeName($emp_id) {
+      $employee = Employee::find($emp_id);
+      return $employee->lastname.', '.$employee->firstname.' '.$employee->middlename;
+  }
+}
 if (! function_exists('getCivilStatus')) {
     function getCivilStatus() {
         
