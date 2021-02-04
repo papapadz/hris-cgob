@@ -16,8 +16,11 @@ class CreateEmployeeDtrTable extends Migration
         Schema::create('employee_dtr', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('emp_id',20);
-            $table->dateTime('dtr');
-            $table->integer('type');
+            $table->time('amin')->nullable();
+            $table->time('amout')->nullable();
+            $table->time('pmin')->nullable();
+            $table->time('pmout')->nullable();
+            $table->date('dtrdate');
             $table->timestamps();
         });
     }

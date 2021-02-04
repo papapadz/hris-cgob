@@ -10,14 +10,16 @@ class EmployeeDtr extends Model
 
     protected $fillable = [
         'emp_id',
-        'dtr',
-        'type',
-    
+        'dtrdate',
+        'amin',
+        'amout',
+        'pmin',
+        'pmout'
     ];
     
     
     protected $dates = [
-        'dtr',
+        'dtrdate',
         'created_at',
         'updated_at',
     
