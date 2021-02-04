@@ -5,10 +5,12 @@
         <th>Employee ID</th>
         <th>Name</th>
         @endif
-        <th>Date</th>
-        <th>Position</th>
-        <th>Department</th>
-        <th>Status</th>
+        <th>Eligibility</th>
+        <th>License No.</th>
+        <th>Confer Date</th>
+        <th>Confer Place</th>
+        <th>Rating</th>
+        <th>Expiry Date</th>
         <th></th>
         <th></th>
       </tr>
@@ -20,15 +22,20 @@
           <td><strong>{{ $employee->emp_id }}</strong></td>
           <td>{{ getEmployeeName($employee->emp_id) }}</td>
         @endif
-          <td>{{ $appointment->startdate->format('Y-m-d') }} 
-            to 
-            @if($appointment->enddate==null) Present @else {{ $appointment->enddate->format('Y-m-d') }} @endif
-          </td>
-          <td>{{ $appointment->plantilla->position->position }}</td>
-          <td>{{ $appointment->department->department }}</td>
-          <td>{{ $appointment->employmentStat->employmenttype }}</td>
+          <td>{{ $eligibility->eligibilityType->eligibility }}</td>
+          <td>{{ $eligibility->licensenum }}</td>
+          <td>{{ $eligibility->startdate->format('Y-m-d') }}</td>
+          <td>{{ $eligibility->place }}</td>
+          <td>{{ $eligibility->rating }}%</td> 
           <td>
-            <a href="{{ url('/appointments/' . $appointment->id) }}" class="btn btn-block btn-primary">View</a>
+            @if($eligibility->enddate!=null)  
+                {{ $eligibility->enddate->format('Y-m-d') }}
+            @else
+                N/A
+            @endif
+          </td>
+          <td>
+            <a href="{{ url('/appointments/' . $eligibility->id) }}" class="btn btn-block btn-primary">View</a>
           </td>
           <td>
             <form action="{{ route('appointments.destroy', $employee->emp_id ) }}" method="POST">
