@@ -2,6 +2,7 @@
 
 //use Jenssegers\Mongodb\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use App\Models\CivilStatus;
 use App\Models\Citizenship;
 use App\Models\Province;
@@ -105,6 +106,52 @@ if (! function_exists('listEducationLevel')) {
       case 4: return 'College';
       case 5: return 'Graduate School';
     }
+  }
+}
+
+if (! function_exists('leaveStatus')) {
+
+  function leaveStatus($id) {
+    switch($id) {
+      case 1: return 'Pending';
+      case 2: return 'Approved';
+      case 3: return 'Disapproved';
+      case 4: return 'Cancelled';
+    }
+  }
+}
+
+if (! function_exists('formatDisplay')) {
+
+  function formatDisplay($type,$val) {
+    
+    if($val==null)
+      return null;
+    
+    $val = Carbon::parse($val);
+
+    switch($type) {
+      case 'time': return $val->format('h:i A');
+      case 'date': return $val->format('m-d-Y');
+      case 'datetime': return $val->format('m-d-Y h:i: A');
+    }
+  }
+}
+
+if (! function_exists('getIpcrGrade')) {
+
+  function getIpcrGrade($rating) {
+    
+    if($rating>=4.5)
+      return 'O';
+    else if($rating >= 3.5 && $rating<4.5)
+      return 'VS';
+    else if($rating >= 2.5 && $rating<3.5)
+      return 'S';
+    else if($rating >= 1.5 && $rating<2.5)
+      return 'U';
+    else
+      return 'P';
   }
 }
 ?>
