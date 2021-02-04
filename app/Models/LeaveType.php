@@ -15,7 +15,6 @@ class LeaveType extends Model
     
     ];
     
-    
     protected $dates = [
         'created_at',
         'updated_at',
@@ -23,4 +22,7 @@ class LeaveType extends Model
     
     ];
     
+    public function leave() {
+        return $this->belongsTo(EmployeeLeave::class,'leavetype_id','id');
+    }
 }
