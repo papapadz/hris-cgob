@@ -49,10 +49,7 @@
     <div class="form-group row">
         <div class="col-md-6">
             <label>Gender</label>
-            @if(isset($employee))
-                <span class="form-control-plaintext">@if($employee->gender=='M') Male @else Female @endif</span>
-            @endif
-            <select @isset($employee) hidden @endif class="form-control" name="gender">
+            <select class="form-control" name="gender">
                 <option
                     @isset($employee)
                         @if($employee->gender=='M')
@@ -71,10 +68,7 @@
         </div>
         <div class="col-md-6">
             <label>Blood Type</label>
-            @if(isset($employee))
-                <span class="form-control-plaintext">{{ $employee->bloodtype }}</span>
-            @endif
-            <select @isset($employee) hidden @endif class="form-control" name="bloodtype">
+            <select class="form-control" name="bloodtype">
                 <option
                     @isset($employee)
                         @if($employee->bloodtype=='A')
@@ -110,10 +104,7 @@
     <div class="form-group row">
         <div class="col-md-6">
             <label>Civil Status</label>
-            @if(isset($employee))
-                <span class="form-control-plaintext">{{ $employee->civilStatus->civil_status }}</span>
-            @endif
-            <select @isset($employee) hidden @endif class="form-control" name="civilstat_id">
+            <select id="ctzn" class="form-control" name="civilstat_id">
                 @foreach(getCivilStatus() as $civilstat_id)
                     <option 
                         @if(isset($employee))
@@ -127,10 +118,7 @@
         </div>
         <div class="col-md-6">
             <label>Citizenship</label>
-            @if(isset($employee))
-                <span class="form-control-plaintext">{{ $employee->citizenship->citizenship }}<span
-            @endif
-            <select @isset($employee) hidden @endif class="form-control" name="citizenship_id">
+            <select id="ctzn" class="form-control"name="citizenship_id">
                 @foreach(getCitizenships() as $citizenship)
                     <option
                         @if(isset($employee))

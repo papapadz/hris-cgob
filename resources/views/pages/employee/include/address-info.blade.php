@@ -1,10 +1,7 @@
     <div class="form-group row">
         <div class="col-12">
             <label>Province</label>
-            @if(isset($employee))
-                <span class="form-control-plaintext">{{ $employee->address->town->province->province }}</span>
-            @endif
-            <select @isset($employee) hidden @endif id="province" class="form-control">
+            <select id="province" class="form-control">
                 @if(isset($employee))
                     @foreach(listProvinces() as $province)
                         <option 
@@ -27,10 +24,7 @@
     <div class="form-group row">
         <div class="col-12">
             <label>Town</label>
-            @if(isset($employee))
-                <span class="form-control-plaintext">{{ $employee->address->town->town }}</span>
-            @endif
-            <select @isset($employee) hidden @endif id="town" class="form-control">
+            <select id="town" class="form-control">
                 @if(isset($employee))
                     @foreach(listTowns($employee->address->town->province_id) as $town)
                         <option 
@@ -47,10 +41,7 @@
     <div class="form-group row">
         <div class="col-12">
             <label>Barangay</label>
-            @if(isset($employee))
-                <span class="form-control-plaintext">{{ $employee->address->barangay }}</span>
-            @endif
-            <select @isset($employee) hidden @endif id="barangay" name="address_id" class="form-control">
+            <select id="barangay" name="address_id" class="form-control">
                 @if(isset($employee))
                     @foreach(listBarangays($employee->address_id) as $barangay)
                         <option 

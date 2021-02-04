@@ -39,21 +39,6 @@
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#education">IV</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#eligibility">V</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#training">VI</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#leave">VII</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#dtr">VIII</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#ipcr">IX</a>
-                    </li>
                   </ul>
                 </div>
                 <div class="card-body">
@@ -70,21 +55,6 @@
                         <div class="tab-pane" id="education" role="tabpanel">
                             @include('pages.education.include.education-list')
                         </div>
-                        <div class="tab-pane" id="eligibility" role="tabpanel">
-                            @include('pages.eligibility.include.eligibility-list')
-                        </div>
-                        <div class="tab-pane" id="training" role="tabpanel">
-                            @include('pages.training.include.training-list')
-                        </div>
-                        <div class="tab-pane" id="leave" role="tabpanel">
-                            @include('pages.leave.include.leave-list')
-                        </div>
-                        <div class="tab-pane" id="dtr" role="tabpanel">
-                            @include('pages.dtr.include.dtr-list')
-                        </div>
-                        <div class="tab-pane" id="ipcr" role="tabpanel">
-                            @include('pages.ipcr.include.ipcr-list')
-                        </div>
                     </div>
                 </div>
               </div>
@@ -99,8 +69,10 @@
 $(document).ready(function() {
     $('input').prop('readonly',true)
     $('input').prop('class','form-control-plaintext')
+    $('select').prop('class','form-control-plaintext')
+    $('select').prop('disabled',true)
+    $('select').prop('disabled',true)
     $('table').DataTable()
-    select2.select2('destroy')
 });
 </script>
 @endsection
