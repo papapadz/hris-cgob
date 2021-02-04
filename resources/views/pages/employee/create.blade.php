@@ -33,7 +33,7 @@
                   </div>
 
                   <div class="tab-pane" id="employment" role="tabpanel">
-                    @include('pages.employee.include.employment-info')
+                    @include('pages.appointment.include.add')
                     <div class="form-group row">
                       <div class="col-12">
                         <button class="btn btn-block btn-success" type="submit">{{ __('Add') }}</button>
@@ -48,42 +48,4 @@
     </div>
   </div>
 </div>
-
-@endsection
-
-@section('javascript')
-<script type="text/javascript">
-    $(document).ready(function() {
-        
-        function getAjax(url,element,flag,id) {
-            $.ajax({
-                method: "GET",
-                url: "{{ url('ajax/get') }}/"+url,
-                data: { flag:flag, id:id }
-            }).done(function( response ) {
-                console.log(response)
-                $('#'+element).empty()
-                response.forEach(function (data, index, arr) {
-                    $('#'+element).append(
-                        '<option value="'+data.id+'">'+data[element]+'</option>'
-                    )
-                });
-                if(flag==2)
-                    getAjax('address','barangay',3,response[0].id)
-            })
-        }
-
-        $('#province').on('change', function() {
-            getAjax('address','town',2,$(this).val())
-        })
-
-        $('#town').on('change', function() {
-            getAjax('address','barangay',3,$(this).val())
-        })
-
-        $('#position').on('change', function() {
-            getAjax('plantilla','plantilla',0,$(this).val())
-        })
-    })
-</script>
 @endsection
