@@ -18,7 +18,7 @@ class CreateEmployeeIpcrfRatingsTable extends Migration
             $table->bigInteger('ipcrf_id');
             $table->integer('selfrating')->default(1);
             $table->integer('supervisorrating')->default(1);
-            $table->string('itemtype',5);
+            $table->string('supervisor',20)->nullable();
             $table->timestamps();
         });
     }

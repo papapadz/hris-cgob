@@ -10,15 +10,21 @@ class EmployeeIpcrfRating extends Model
         'ipcrf_id',
         'selfrating',
         'supervisorrating',
-        'itemtype',
-    
+        'supervisor',
     ];
     
     
     protected $dates = [
         'created_at',
         'updated_at',
-    
+
     ];
     
+    public function ipcrf() {
+        return $this->belongsTo(EmployeeIpcrf::class,'id','ipcrf_id');
+    }
+
+    public function supervisor() {
+        return $this->hasOne(Employee::class,'emp_id','supervisor');
+    }
 }

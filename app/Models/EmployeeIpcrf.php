@@ -15,9 +15,8 @@ class EmployeeIpcrf extends Model
         'target',
         'accomplishment',
         'ipcrfdate',
-        'supervisor_id',
         'remarks',
-    
+        'type'
     ];
     
     
@@ -29,4 +28,7 @@ class EmployeeIpcrf extends Model
     
     ];
     
+    public function rating() {
+        return $this->hasOne(EmployeeIpcrfRating::class,'ipcrf_id','id');
+    }
 }

@@ -29,4 +29,8 @@ class EmployeeEligibility extends Model
     
     ];
 
+    public function eligibilityType() {
+        return $this->hasOne(EligibilityType::class,'id','eligibilitytype_id');
+    }
+
 }

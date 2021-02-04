@@ -20,4 +20,8 @@ class EmployeeLeaveDate extends Model
     
     ];
     
+    public function leave() {
+        return $this->belongsTo(EmployeeLeave::class,'id','employeeleave_id')->orderBy('leavedate');
+    }
+
 }

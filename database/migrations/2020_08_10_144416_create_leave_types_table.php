@@ -17,7 +17,7 @@ class CreateLeaveTypesTable extends Migration
             $table->bigIncrements('id');
             $table->string('leavetype');
             $table->integer('maxvalue');
-            $table->string('description',100);
+            $table->string('description',255);
             $table->timestamps();
             $table->softDeletes();
         });

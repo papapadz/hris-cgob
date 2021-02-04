@@ -26,5 +26,12 @@ class EmployeeLeave extends Model
         'deleted_at',
     
     ];
-    
+ 
+    public function leaveType() {
+        return $this->hasOne(LeaveType::class,'id','leavetype_id');
+    }
+
+    public function leaveDays() {
+        return $this->hasMany(EmployeeLeaveDate::class,'employeeleave_id','id');
+    }
 }

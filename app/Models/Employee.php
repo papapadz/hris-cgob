@@ -86,11 +86,11 @@ class Employee extends Model
     }
 
     public function ipcrfs() {
-        return $this->hasMany(EmployeeIpcrf::class,'emp_id','emp_id');
+        return $this->hasMany(EmployeeIpcrf::class,'emp_id','emp_id')->with('rating');
     }
 
     public function leaves() {
-        return $this->hasMany(EmployeeLeave::class,'emp_id','emp_id');
+        return $this->hasMany(EmployeeLeave::class,'emp_id','emp_id')->with(['leaveType','leaveDays']);
     }
 
     public function licenses() {
@@ -110,7 +110,7 @@ class Employee extends Model
     }
 
     public function trainings() {
-        return $this->hasMany(EmployeeTraining::class,'emp_id','emp_id');
+        return $this->hasMany(EmployeeTraining::class,'emp_id','emp_id')->with(['trainingType']);
     }
 
     public function userAccount() {

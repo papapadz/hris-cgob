@@ -38,13 +38,15 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $employee = Employee::create($request->all());
-        Appointment::create($request->all());
+        //$employee = Employee::create($request->all());
+        //Appointment::create($request->all());
 
         $filename = FileController::upload($request->file('image'),'img');
-        $employee->update([
-            'img_url' => $filename
+        Employee::where('emp_id',$request->emp_id)->update([
+            'image_url' => $filename
         ]);
+
+        return redirect()->back()->with('success','Employee record created successfully!');
     }
 
     /**

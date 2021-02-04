@@ -28,5 +28,8 @@ class EmployeeTraining extends Model
     
     ];
     
+    public function trainingType() {
+        return $this->hasOne(TrainingType::class,'id','trainingtype_id');
+    }
 
 }
