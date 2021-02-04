@@ -94,11 +94,45 @@
     <!-- CoreUI and necessary plugins-->
     <script src="{{ asset('js/coreui.bundle.min.js') }}"></script>
     <script src="{{ asset('js/coreui-utils.js') }}"></script>
+    <!-- global javascripts -->
     <script>
-      $('select').select2({
-        theme: 'bootstrap4'
-      })
+      select2 = $('select').select2({
+          theme: 'bootstrap4'
+        })
     </script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        function getAjax(url,element,flag,id) {
+            $.ajax({
+                method: "GET",
+                url: "{{ url('ajax/get') }}/"+url,
+                data: { flag:flag, id:id }
+            }).done(function( response ) {
+                console.log(response)
+                $('#'+element).empty()
+                response.forEach(function (data, index, arr) {
+                    $('#'+element).append(
+                        '<option value="'+data.id+'">'+data[element]+'</option>'
+                    )
+                });
+                if(flag==2)
+                    getAjax('address','barangay',3,response[0].id)
+            })
+        }
+  
+        $('#province').on('change', function() {
+            getAjax('address','town',2,$(this).val())
+        })
+  
+        $('#town').on('change', function() {
+            getAjax('address','barangay',3,$(this).val())
+        })
+  
+        $('#position').on('change', function() {
+            getAjax('plantilla','plantilla',0,$(this).val())
+        })
+      })
+  </script>
     @yield('javascript')
 
   </body>
