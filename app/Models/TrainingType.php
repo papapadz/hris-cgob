@@ -22,4 +22,7 @@ class TrainingType extends Model
     
     ];
     
+    public function training() {
+        return $this->belongsTo(EmployeeTraining::class,'trainingtype_id','id');
+    }
 }
