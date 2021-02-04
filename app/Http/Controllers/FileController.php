@@ -10,13 +10,13 @@ class FileController extends Controller
     public static function upload($file,$type) {
 
         switch($type) {
-            case 'img': $destinationPath = url('assets/avatar'); break;
-            case 'docs': $destinationPath = url('assets/docs'); break;
+            case 'img': $dir = 'assets/avatar'; break;
+            case 'docs': $dir = 'assets/docs'; break;
         }
 
         $filename = Carbon::now()->getPreciseTimestamp().'.'.$file->getClientOriginalExtension();
-        $file->move($destinationPath, $filename);
+        $file->move(public_path($dir), $filename);
 
-        return $dir.'/'.$filename;
+        return url($dir.'/').$filename;
     }
 }
