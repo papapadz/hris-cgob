@@ -19,7 +19,7 @@ class CreateEmployeeTrainingsTable extends Migration
             $table->string('trainingtitle',100);
             $table->string('sponsor',100);
             $table->string('venue',100);
-            $table->integer('trainingtype_id');
+            $table->bigInteger('trainingtype_id');
             $table->decimal('hrs',7,2);
             $table->date('startdate');
             $table->date('enddate');

@@ -16,7 +16,7 @@ class CreateApplicantRatingsTable extends Migration
         Schema::create('applicant_ratings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('application_id');
-            $table->bigInteger('type_id');
+            $table->bigInteger('ratingtype_id');
             $table->decimal('score',8,2)->default(0);
             $table->string('rating_by',20);
             $table->timestamps();

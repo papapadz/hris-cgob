@@ -29,6 +29,7 @@ class CreateEmployeesTable extends Migration
             $table->decimal('weight');
             $table->string('bloodtype',3);
             $table->string('image_url',255)->nullable();
+            $table->boolean('isapplicant')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
