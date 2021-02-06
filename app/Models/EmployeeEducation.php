@@ -39,7 +39,7 @@ class EmployeeEducation extends Model
     }
 
     public function school() {
-        return $this->hasOne(School::class,'id','school_id')->with('employeeEducation');
+        return $this->hasOne(School::class,'id','school_id');
     }
 
     public function course() {
