@@ -14,8 +14,10 @@
 Route::group(['middleware' => ['get.menu']], function () {
     
     Route::prefix('ajax')->group(function () { 
+        Route::get('generate/modal/fields','AjaxController@generateFields');
         Route::get('get/address','AjaxController@getAddress');
         Route::get('get/plantilla','AjaxController@getPlantilla');
+        Route::post('save/formdata','AjaxController@saveFormData');
     });
 
     Route::resources([

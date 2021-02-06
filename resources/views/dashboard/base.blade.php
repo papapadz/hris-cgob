@@ -76,10 +76,21 @@
       <div class="c-body">
 
         <main class="c-main">
-
+          
+          @if(Session::has('alert'))
+            <div class="container-fluid">
+              <div class="alert alert-{{ Session::get('alert') }} alert-dismissible fade show" role="alert">
+                <strong>{{ Session::get('title') }}</strong> {{ Session::get('message') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+          @endif
           @yield('content') 
 
         </main>
+        @include('layouts.modal')
         @include('dashboard.shared.footer')
       </div>
     </div>
@@ -90,7 +101,8 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
     <!-- Select2 -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- CoreUI and necessary plugins-->
     <script src="{{ asset('js/coreui.bundle.min.js') }}"></script>
     <script src="{{ asset('js/coreui-utils.js') }}"></script>
@@ -102,6 +114,17 @@
     </script>
     <script type="text/javascript">
       $(document).ready(function() {
+
+        function fireAlert(type,message) {
+          Swal.fire({
+            position: 'top-end',
+            icon: type,
+            title: message,
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+
         function getAjax(url,element,flag,id) {
             $.ajax({
                 method: "GET",
