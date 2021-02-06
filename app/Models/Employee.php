@@ -27,7 +27,7 @@ class Employee extends Model
         'weight',
         'bloodtype',
         'image_url',
-    
+        'isapplicant',
     ];
     
     
