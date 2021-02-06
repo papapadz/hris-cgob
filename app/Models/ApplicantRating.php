@@ -8,7 +8,7 @@ class ApplicantRating extends Model
 {
     protected $fillable = [
         'application_id',
-        'type_id',
+        'ratingtype_id',
         'score',
         'rating_by',
     
