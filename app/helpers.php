@@ -14,6 +14,21 @@ use App\Models\Employee;
 use App\Models\AppointmentType;
 use App\Models\Department;
 use App\Models\Appointment;
+use App\Models\EmployeeContactDetail;
+use App\Models\EmployeeDtr;
+use App\Models\EmployeeEducation;
+use App\Models\EmployeeEligibility;
+use App\Models\EmployeeFamily;
+use App\Models\EmployeeHobby;
+use App\Models\EmployeeIpcrf;
+use App\Models\EmployeeLeave;
+use App\Models\EmployeeLicenseNumber;
+use App\Models\EmployeeMembership;
+use App\Models\EmployeeNonacademicDistinction;
+use App\Models\EmployeePayroll;
+use App\Models\EmployeeTraining;
+use App\Models\EmployeeVoluntaryWork;
+use App\Models\EmployeeWorkExperience;
 
 if (! function_exists('getEmployeeName')) {
   function getEmployeeName($emp_id) {
@@ -152,6 +167,24 @@ if (! function_exists('getIpcrGrade')) {
       return 'U';
     else
       return 'P';
+  }
+}
+
+if (! function_exists('getModelInstance')) {
+
+  function getModelInstance($index) {
+    
+    switch($index) {
+      case 0: return new Employee;break;
+      case 1: return new Appointment;break;
+      case 2: return new EmployeeWorkExperience;break;
+      case 3: return new EmployeeEducation;break;
+      case 4: return new EmployeeEligibility;break;
+      case 5: return new EmployeeTraining;break;
+      case 6: return new EmployeeLeave;break;
+      case 7: return new EmployeeDtr;break;
+      case 8: return new EmployeeIpcrf;break;
+    }
   }
 }
 ?>
