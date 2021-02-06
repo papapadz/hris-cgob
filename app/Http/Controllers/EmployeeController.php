@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Session;
 use Illuminate\Http\Request;
 use App\Models\Employee;
 use App\Models\Appointment;
@@ -16,7 +17,7 @@ class EmployeeController extends Controller
     public function index()
     {
         return view('pages.employee.index')->with([
-            'employees' => Employee::orderBy('lastname')->paginate(10)
+            'employees' => Employee::orderBy('lastname')->get()
         ]);
     }
 
@@ -38,15 +39,18 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //$employee = Employee::create($request->all());
-        //Appointment::create($request->all());
+        $employee = Employee::create($request->all());
+        Appointment::create($request->all());
 
         $filename = FileController::upload($request->file('image'),'img');
         Employee::where('emp_id',$request->emp_id)->update([
             'image_url' => $filename
         ]);
 
-        return redirect()->back()->with('success','Employee record created successfully!');
+        Session::flash('alert','success');
+        Session::flash('title','Alright! ');
+        Session::flash('message','Employee record created successfully.');
+        return redirect()->back();
     }
 
     /**

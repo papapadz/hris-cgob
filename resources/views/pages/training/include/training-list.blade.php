@@ -32,7 +32,7 @@
             <a href="{{ url('/trainings/' . $training->id) }}" class="btn btn-block btn-primary">View</a>
           </td>
           <td>
-            <form action="{{ route('trainings.destroy', $training->id ) }}" method="POST">
+            <form action="{{ route('appointments.destroy', $training->id ) }}" method="POST">
                 @method('DELETE')
                 @csrf
                 <button class="btn btn-block btn-danger">Delete</button>
