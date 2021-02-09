@@ -18,7 +18,7 @@
         <div class="col-md-9 col-sm-6 col-xs-12">
             <div class="card">
                 <div class="card-header">
-                  <ul id="profile-tabs" class="nav nav-tabs card-header-tabs">
+                  {{-- <ul id="profile-tabs" class="nav nav-tabs card-header-tabs">
                     <li class="nav-item">
                       <a class="nav-link active" title="Basic Information" data-toggle="tooltip" data-placement="top" href="#tab1">Basic Information</a>
                     </li>
@@ -46,25 +46,41 @@
                     <li class="nav-item">
                         <a class="nav-link"  title="IPCRF" data-toggle="tooltip" data-placement="top" href="#ipcr">IX</a>
                     </li>
-                  </ul>
+                  </ul> --}}
+                  <ul class="nav nav-tabs">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Basic Information</a>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" data-toggle="tab"  id="personal-info-tab" href="#basic">I. Personal Info</a>
+                          <a class="dropdown-item" data-toggle="tab" id="address-info-tab" href="#address">II. Address</a>
+                          <a class="dropdown-item" data-toggle="tab" id="education-info-tab" href="#education">III. Education</a>
+                          <a class="dropdown-item" data-toggle="tab" id="eligibility-info-tab" href="#eligibility">IV. Eligibility</a>
+                        </div>
+                      </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Professional Information</a>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" data-toggle="tab" id="appointment-info-tab" href="#appointment">I. Appointment</a>
+                        <a class="dropdown-item" data-toggle="tab" id="workexperience-info-tab" href="#appointment">II. Work Experience</a>
+                        <a class="dropdown-item" data-toggle="tab" id="training-info-tab" href="#training">III. Trainings</a>
+                        <a class="dropdown-item" data-toggle="tab" id="ipcrf-info-tab" href="#">IV. IPCRF</a>
+                      </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Attendance</a>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" data-toggle="tab" id="appointment-info-tab" href="#appointment">I. Daily Time Record</a>
+                          <a class="dropdown-item" data-toggle="tab" id="workexperience-info-tab" href="#appointment">II. Leave</a>
+                        </div>
+                      </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Link</a>
+                    </li>
                 </div>
                 <div class="card-body">
                     <div class="tab-content">
-                        <div class="tab-pane active" id="tab1" role="tabpanel">
-                            <ul class="nav nav-pills nav-fill">
-                                <li class="nav-item">
-                                  <a class="nav-link active" href="#basic">Active</a>
-                                </li>
-                                <li class="nav-item">
-                                  <a class="nav-link" href="#">Longer nav link</a>
-                                </li>
-                                <li class="nav-item">
-                                  <a class="nav-link" href="#">Link</a>
-                                </li>
-                                <li class="nav-item">
-                                  <a class="nav-link disabled" href="#">Disabled</a>
-                                </li>
-                              </ul>
+                        <div class="tab-pane active" id="basic" role="tabpanel">
+                            @include('pages.employee.include.basic-info')
                         </div>
                         <div class="tab-pane" id="address" role="tabpanel">
                             @include('pages.employee.include.address-info')
@@ -96,11 +112,29 @@
                         </button>
                         @include('layouts.floating-button')
                     </div>
+                    {{-- <div class="tab-content">
+                        <div class="tab-pane active" id="tab1" role="tabpanel">
+                            <ul class="nav nav-pills nav-fill">
+                                <li class="nav-item">
+                                  <a class="nav-link active" href="#basic">Active</a>
+                                </li>
+                                <li class="nav-item">
+                                  <a class="nav-link" href="#">Longer nav link</a>
+                                </li>
+                                <li class="nav-item">
+                                  <a class="nav-link" href="#">Link</a>
+                                </li>
+                                <li class="nav-item">
+                                  <a class="nav-link disabled" href="#">Disabled</a>
+                                </li>
+                              </ul>
+                        </div>
+                    </div>
                     <div class="tab-content">
                         <div class="tab-pane" id="basic" role="tabpanel">
                             @include('pages.employee.include.basic-info')
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
               </div>
         </div>
@@ -182,14 +216,26 @@ $(document).ready(function() {
         btnpress = 0
     }
 
-    $('.nav a').click(function(e){
-        e.preventDefault() 
-        $(this).tab('show')
-        tabindex = $(e.target).parent().index()
+    // $('.nav-tabs a').click(function(e){
+    //     e.preventDefault() 
+    //     $(this).tab('show')
+    //     tabindex = $(e.target).parent().index()
+        
+    //     switch(e.target.id) {
+    //         case 'personal-info-tab': togglebuttons(true); break
+    //         case 'address-info-tab': togglebuttons(true); break
+    //         default: togglebuttons(false); break
+    //     }
+    // })
 
-        switch($(this).text()) {
-            case 'I': togglebuttons(true); break
-            case 'II': togglebuttons(true); break
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        e.target // newly activated tab
+        e.relatedTarget // previous active tab
+        tabindex = $(e.target).parent().index()
+        console.log(e.target)
+        switch(e.target.id) {
+            case 'personal-info-tab': togglebuttons(true); break
+            case 'address-info-tab': togglebuttons(true); break
             default: togglebuttons(false); break
         }
     })
