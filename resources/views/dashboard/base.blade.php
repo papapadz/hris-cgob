@@ -44,6 +44,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
     <!-- Main styles for this application-->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <style>
+    .card {
+      border-radius: 5px;
+	    box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
+    }
+    </style>
     @yield('css')
 
     <!-- Global site tag (gtag.js) - Google Analytics-->

@@ -11,79 +11,83 @@
 @section('content')
 <div class="container-fluid">
     <div class="animated fadeIn">
-      <div class="row">
-        <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="row">
+            <div class="col">
             @include('pages.employee.include.card')
+            </div>   
         </div>
-        <div class="col-md-9 col-sm-6 col-xs-12">
+      <div class="row">
+        <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                  {{-- <ul id="profile-tabs" class="nav nav-tabs card-header-tabs">
+                  <ul id="profile-tabs" class="nav nav-tabs card-header-tabs nav-fill">
                     <li class="nav-item">
-                      <a class="nav-link active" title="Basic Information" data-toggle="tooltip" data-placement="top" href="#tab1">Basic Information</a>
+                      <a class="nav-link active" title="Basic Information" data-toggle="tooltip" data-placement="top" href="#basic">Basic</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link"  title="Address" data-toggle="tooltip" data-placement="top"  href="#address">II</a>
+                      <a class="nav-link"  title="Licenses" data-toggle="tooltip" data-placement="top"  href="#licenses">Liences</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link"  title="Work Experience" data-toggle="tooltip" data-placement="top" href="#appointment">III</a>
+                      <a class="nav-link"  title="Work Experience" data-toggle="tooltip" data-placement="top" href="#appointment">Work Experience</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  title="Educational Background" data-toggle="tooltip" data-placement="top"  href="#education">IV</a>
+                        <a class="nav-link"  title="Educational Background" data-toggle="tooltip" data-placement="top"  href="#education">Education</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  title="Eligibility" data-toggle="tooltip" data-placement="top" href="#eligibility">V</a>
+                        <a class="nav-link"  title="Eligibility" data-toggle="tooltip" data-placement="top" href="#eligibility">Eligibility</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  title="Trainings" data-toggle="tooltip" data-placement="top" href="#training">VI</a>
+                        <a class="nav-link"  title="Trainings" data-toggle="tooltip" data-placement="top" href="#training">Trainings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  title="Leave Card" data-toggle="tooltip" data-placement="top" href="#leave">VII</a>
+                        <a class="nav-link"  title="Leave Card" data-toggle="tooltip" data-placement="top" href="#leave">Leave</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  title="Daily Time Record" data-toggle="tooltip" data-placement="top" href="#dtr">VIII</a>
+                        <a class="nav-link"  title="Daily Time Record" data-toggle="tooltip" data-placement="top" href="#dtr">DTR</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  title="IPCRF" data-toggle="tooltip" data-placement="top" href="#ipcr">IX</a>
+                        <a class="nav-link"  title="IPCRF" data-toggle="tooltip" data-placement="top" href="#ipcr">IPCR</a>
                     </li>
-                  </ul> --}}
-                  <ul class="nav nav-tabs">
+                  </ul>
+                  <!-- <ul class="nav nav-tabs">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Basic Information</a>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" data-toggle="tab"  id="personal-info-tab" href="#basic">I. Personal Info</a>
-                          <a class="dropdown-item" data-toggle="tab" id="address-info-tab" href="#address">II. Address</a>
-                          <a class="dropdown-item" data-toggle="tab" id="education-info-tab" href="#education">III. Education</a>
-                          <a class="dropdown-item" data-toggle="tab" id="eligibility-info-tab" href="#eligibility">IV. Eligibility</a>
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdown1" role="button" aria-expanded="false">Basic Information</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown1">
+                          <a class="dropdown-item" target="basic" href="#basic">I. Personal Info</a>
+                          <a class="dropdown-item" target="address" href="#address">II. Address</a>
+                          <a class="dropdown-item" target="education" href="#education">III. Education</a>
+                          <a class="dropdown-item" target="eligibility" href="#eligibility">IV. Eligibility</a>
                         </div>
                       </li>
                     <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Professional Information</a>
-                      <div class="dropdown-menu">
-                        <a class="dropdown-item" data-toggle="tab" id="appointment-info-tab" href="#appointment">I. Appointment</a>
-                        <a class="dropdown-item" data-toggle="tab" id="workexperience-info-tab" href="#appointment">II. Work Experience</a>
-                        <a class="dropdown-item" data-toggle="tab" id="training-info-tab" href="#training">III. Trainings</a>
-                        <a class="dropdown-item" data-toggle="tab" id="ipcrf-info-tab" href="#">IV. IPCRF</a>
+                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdown2" role="button" aria-expanded="false">Professional Information</a>
+                      <div class="dropdown-menu" aria-labelledby="dropdown2">
+                        <a class="dropdown-item" id="appointment-info-tab" href="#appointment">I. Appointment</a>
+                        <a class="dropdown-item" id="workexperience-info-tab" href="#appointment">II. Work Experience</a>
+                        <a class="dropdown-item" id="training-info-tab" href="#training">III. Trainings</a>
+                        <a class="dropdown-item" id="ipcrf-info-tab" href="#">IV. IPCRF</a>
                       </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Attendance</a>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" data-toggle="tab" id="appointment-info-tab" href="#appointment">I. Daily Time Record</a>
-                          <a class="dropdown-item" data-toggle="tab" id="workexperience-info-tab" href="#appointment">II. Leave</a>
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdown3" role="button" aria-expanded="false">Attendance</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown3">
+                          <a class="dropdown-item" id="appointment-info-tab" href="#appointment">I. Daily Time Record</a>
+                          <a class="dropdown-item" id="workexperience-info-tab" href="#appointment">II. Leave</a>
                         </div>
                       </li>
                     <li class="nav-item">
                       <a class="nav-link" href="#">Link</a>
                     </li>
+                 </ul> -->
                 </div>
                 <div class="card-body">
                     <div class="tab-content">
                         <div class="tab-pane active" id="basic" role="tabpanel">
                             @include('pages.employee.include.basic-info')
+                            <hr>
+                            @include('pages.employee.include.address-info')
                         </div>
                         <div class="tab-pane" id="address" role="tabpanel">
-                            @include('pages.employee.include.address-info')
                         </div>
                         <div class="tab-pane" id="appointment" role="tabpanel">
                             @include('pages.appointment.include.appointment-list')
@@ -204,6 +208,7 @@ $(document).ready(function() {
         $('input').prop('class','form-control')
         $('#floating-button').css('background-color','red')
         $('#floating-button').text('Cancel')
+        $('span.form-control-plaintext').hide()
         btnpress = 1
     }
 
@@ -213,32 +218,33 @@ $(document).ready(function() {
         $('input').prop('class','form-control-plaintext')
         $('#floating-button').css('background-color','blue')
         $('#floating-button').text('Edit')
+        $('span.form-control-plaintext').show()
         btnpress = 0
     }
 
-    // $('.nav-tabs a').click(function(e){
-    //     e.preventDefault() 
-    //     $(this).tab('show')
-    //     tabindex = $(e.target).parent().index()
+    $('.nav-tabs a').click(function(e){
+        e.preventDefault() 
         
+        $(this).tab('show')
+        tabindex = $(e.target).parent().index()
+        
+        switch(tabindex) {
+            case 0: togglebuttons(true); break
+            default: togglebuttons(false); break
+        }
+    })
+
+    // $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    //     e.target // newly activated tab
+    //     e.relatedTarget // previous active tab
+    //     tabindex = $(e.target).parent().index()
+    //     console.log(e.target)
     //     switch(e.target.id) {
     //         case 'personal-info-tab': togglebuttons(true); break
     //         case 'address-info-tab': togglebuttons(true); break
     //         default: togglebuttons(false); break
     //     }
     // })
-
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        e.target // newly activated tab
-        e.relatedTarget // previous active tab
-        tabindex = $(e.target).parent().index()
-        console.log(e.target)
-        switch(e.target.id) {
-            case 'personal-info-tab': togglebuttons(true); break
-            case 'address-info-tab': togglebuttons(true); break
-            default: togglebuttons(false); break
-        }
-    })
 
     function togglebuttons($flag) {
         if($flag) {

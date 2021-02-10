@@ -5,13 +5,6 @@
 	box-sizing: border-box;
 }
 
-body {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-
-}
 
 h3 {
 	margin: 10px 0;
@@ -28,7 +21,7 @@ p {
 }
 
 .card-container {
-	background-color: white;
+	background-color: 	rgb(46, 184, 92);
 	border-radius: 5px;
 	box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
 	padding-top: 30px;
@@ -68,11 +61,17 @@ p {
 </style>
 
 <div class="card-container">
-	<img class="round" src="{{ $employee->image_url }}" height="75%" width="75%" />
-    <h3>{{ $employee->emp_id }}</h3>
-    <h6>{{ getEmployeeName($employee->emp_id) }}</h6>
-	<p>{{ $employee->appointments->plantilla->position->position }}</p>
-	<p>{{ $employee->appointments->department->department }}</p>
+	<div class="row">
+		<div class="col-sm-6 col-xs-12">
+			<img class="round" src="{{ $employee->image_url }}" height="150" width="150" />
+		</div>
+		<div class="col-sm-6 col-xs-12">
+			<h3>{{ $employee->emp_id }}</h3>
+			<h6>{{ getEmployeeName($employee->emp_id) }}</h6>
+			<p>{{ $employee->appointments->plantilla->position->position }}</p>
+			<p>{{ $employee->appointments->department->department }}</p>
+		</div>
+	</div>
 	{{-- <div class="buttons">
 		<button class="primary">
 			Message
