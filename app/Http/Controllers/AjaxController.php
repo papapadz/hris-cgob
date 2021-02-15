@@ -33,32 +33,45 @@ class AjaxController extends Controller
         $table = $model->getTable();
         $form = '<form id="'.$request->formname.'"><input type="hidden" name="_token" value="'.csrf_token().'"><input type="hidden" name="index" value="'.$request->index.'">';
 
+        //if($table=='')
+
         foreach($fields as $field) {
-            if($field=='emp_id')
-                $form .= '<input type="hidden" name="emp_id" value="'.$request->emp_id.'">';
-            else
-                $form .= $this->getHTMLElement(
-                    $field,
-                    DB::getSchemaBuilder()->getColumnType($table, $field)
-                );
+            if($this->removeFields($field)) {
+                if($field=='emp_id')
+                    $form .= '<input type="hidden" name="emp_id" value="'.$request->emp_id.'">';
+                else
+                    $form .= $this->getHTMLElement(
+                        $field,
+                        DB::getSchemaBuilder()->getColumnType($table, $field)
+                    );
+            }
         }
         return $form.'</form>';
     }
 
+    public function removeFields($name) {
+        $removables = array('level','sl','vl','status','numdays');
+        foreach($removables as $remove) {
+            if($remove==$name)
+                return false;
+        }
+        return true;
+    }
+
     public function getHTMLElement($name,$type) {
-    
-        $field = '<label>'.Str::title($name).'</label>';
+        
+        $removable = ['_','id','date','type','is','year','url'];
+        $field = '<label>'.Str::title(str_replace($removable,'',$name)).'</label>';
         switch($type) {
             case 'string': 
-                $field .= '<input class="form-control" type="text" name="'.$name.'">';
+                if (strpos($name, 'url') !== false)
+                    $field .= '<input class="form-control" type="file" name="'.$name.'">';
+                else
+                    $field .= '<input class="form-control" type="text" name="'.$name.'">';
                 break;
             case 'bigint':
-                
-                //if(Str::of($name)->contains('id')) {
                     $field .= '<select class="form-control generated-form-select" name="'.$name.'">';
                     $field .= $this->elementsWithSelect($name).'</select>';
-                //} else
-                //    $field .= '<input class="form-control" type="text" name="'.$name.'">';
                 break;
             case 'boolean':
                 $field .= '<div class="form-check"><input class="form-check-input" type="radio" name="'.$name.'" value=true checked><label class="form-check-label">Yes</label></div>';
@@ -91,8 +104,9 @@ class AjaxController extends Controller
             ['field'=>'employmenttype_id','table'=>'employment_types','text'=>'employmenttype'],
             ['field'=>'appointmenttype_id','table'=>'appointment_types','text'=>'appointmenttype'],
             ['field'=>'department_id','table'=>'departments','text'=>'department'],
-            ['field'=>'town_id','table'=>'barangays','text'=>'barangay'],
-            ['field'=>'address_id','table'=>'towns','text'=>'town'],
+            ['field'=>'province_id','table'=>'provinces','text'=>'province'],
+            ['field'=>'town_id','table'=>'towns','text'=>'town'],
+            ['field'=>'address_id','table'=>'barangays','text'=>'barangay'],
             ['field'=>'civilstat_id','table'=>'civil_status','text'=>'civil_status'],
             ['field'=>'citizenship_id','table'=>'citizenships','text'=>'citizenship'],
             ['field'=>'eligibilitytype_id','table'=>'eligibility_types','text'=>'eligibility'],
