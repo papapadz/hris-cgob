@@ -15,7 +15,7 @@ class EmployeeTraining extends Model
         'hrs',
         'startdate',
         'enddate',
-        'address_id',
+        //'address_id',
     
     ];
     
