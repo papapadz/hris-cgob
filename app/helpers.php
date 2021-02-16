@@ -36,6 +36,13 @@ if (! function_exists('getEmployeeName')) {
       return $employee->lastname.', '.$employee->firstname.' '.$employee->middlename;
   }
 }
+
+if (! function_exists('getEmployee')) {
+  function getEmployee($emp_id) {
+      return Employee::find($emp_id);
+  }
+}
+
 if (! function_exists('getCivilStatus')) {
     function getCivilStatus() {
         
