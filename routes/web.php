@@ -24,6 +24,12 @@ Route::group(['middleware' => ['get.menu']], function () {
         'employees' => 'EmployeeController',
         'appointments' => 'AppointmentController'
     ]);
+
+    Route::get('appointments/add/{id}', function($id) {
+        return view('pages.appointment.create',[
+            'employee' => getEmployee($id)
+        ]);
+    });
     
     Route::get('/', function () { return view('dashboard.homepage'); });
 

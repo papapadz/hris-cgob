@@ -20,7 +20,6 @@ class EmployeeWorkExperience extends Model
     
     ];
     
-    
     protected $dates = [
         'startdate',
         'enddate',

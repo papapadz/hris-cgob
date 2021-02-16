@@ -23,7 +23,7 @@
         </div>
         <div class="col-md-6">
             <label>Extension</label>
-            <input class="form-control" value="{{ $employee->extension ?? null }}" type="text" placeholder="{{ __('Middle Name') }}" name="extension">
+            <input class="form-control" value="{{ $employee->extension ?? null }}" type="text" placeholder="{{ __('Extension') }}" name="extension">
         </div>
     </div>
 

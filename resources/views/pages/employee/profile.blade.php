@@ -25,10 +25,10 @@
                       <a class="nav-link active" title="Basic Information" data-toggle="tooltip" data-placement="top" href="#basic">Basic</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link"  title="Licenses" data-toggle="tooltip" data-placement="top"  href="#licenses">Liences</a>
+                      <a class="nav-link"  title="Appointments" data-toggle="tooltip" data-placement="top"  href="#appointment">Appointments</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link"  title="Work Experience" data-toggle="tooltip" data-placement="top" href="#appointment">Work Experience</a>
+                      <a class="nav-link"  title="Work Experience" data-toggle="tooltip" data-placement="top" href="#workexperience">Work Experience</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"  title="Educational Background" data-toggle="tooltip" data-placement="top"  href="#education">Education</a>
@@ -87,10 +87,11 @@
                             <hr>
                             @include('pages.employee.include.address-info')
                         </div>
-                        <div class="tab-pane" id="address" role="tabpanel">
-                        </div>
                         <div class="tab-pane" id="appointment" role="tabpanel">
                             @include('pages.appointment.include.appointment-list')
+                        </div>
+                        <div class="tab-pane" id="workexperience" role="tabpanel">
+                        @include('pages.workexperience.include.workexperience-list')
                         </div>
                         <div class="tab-pane" id="education" role="tabpanel">
                             @include('pages.education.include.education-list')
@@ -183,6 +184,9 @@ $(document).ready(function() {
 
     $('#addbutton').on('click', function(){
         
+        if(tabindex==1)
+            window.location.href = '{{ url("appointments/add/".$employee->emp_id) }}'
+
         $.ajax({
                 method: "GET",
                 url: "{{ url('ajax/generate/modal/fields') }}",
@@ -198,6 +202,9 @@ $(document).ready(function() {
                 $('.generated-form-select').select2({
                     theme: 'bootstrap4'
                 })
+                $('#leavedays').datepicker({
+                    multidate: true
+                });
         })
     })
 

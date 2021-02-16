@@ -61,10 +61,13 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
+        $employee = Employee::find($id);
+
         return view('pages.employee.profile')
             ->with([
-                'employee' => Employee::find($id),
-                'appointments' => listAppointments($id)
+                'employee' => $employee,
+                'appointments' => listAppointments($id),
+                'workExperiences' => $employee->workExperiences,
             ]);
     }
 
