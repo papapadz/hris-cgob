@@ -11,6 +11,7 @@ use App\Models\Town;
 use App\Models\Province;
 use App\Models\Plantilla;
 use App\Models\EmployeeWorkExperience;
+use App\Models\Employee;
  
 class AjaxController extends Controller
 {
@@ -28,12 +29,20 @@ class AjaxController extends Controller
 
     public function generateFields(Request $request) {
 
+        // if($request->index==1)
+        //     return redirect()->route('appointments.create', [
+        //         'employee' => Employee::find($request->emp_id)
+        //     ]);
+        
         $model = getModelInstance($request->index);
         $fields = $model->getFillable();
         $table = $model->getTable();
         $form = '<form id="'.$request->formname.'"><input type="hidden" name="_token" value="'.csrf_token().'"><input type="hidden" name="index" value="'.$request->index.'">';
 
-        //if($table=='')
+        switch($request->index) {
+            //case 1:  $form .= '<label>Position</label><input type="text" name="leavedays" id="leavedays" class="form-control">'; break;
+            case 6:  $form .= '<label>Date</label><input type="text" name="leavedays" id="leavedays" class="form-control">'; break;
+        }
 
         foreach($fields as $field) {
             if($this->removeFields($field)) {

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Employee;
+use App\Models\Appointment;
 
 class AppointmentController extends Controller
 {
@@ -23,7 +25,13 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.appointment.create');
+    }
+
+    public function add($id) {
+        return view('pages.appointment.create',[
+            'employee' => Employee::find($id)
+        ]);
     }
 
     /**
@@ -34,7 +42,8 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Appointment::create($request->all());
+        return redirect()->back();
     }
 
     /**
