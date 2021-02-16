@@ -15,7 +15,7 @@ class CreateAppointmentsTable extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('emp_id',20)->unique();
+            $table->string('emp_id',20);
             $table->bigInteger('plantilla_id');
             $table->integer('step')->default(1);
             $table->bigInteger('employmenttype_id');
