@@ -10,8 +10,9 @@ use App\Models\Barangay;
 use App\Models\Town;
 use App\Models\Province;
 use App\Models\Plantilla;
-use App\Models\EmployeeWorkExperience;
 use App\Models\Employee;
+use App\Models\EmployeeWorkExperience;
+use App\Models\EmployeeEducation;
  
 class AjaxController extends Controller
 {
@@ -59,7 +60,7 @@ class AjaxController extends Controller
     }
 
     public function removeFields($name) {
-        $removables = array('level','sl','vl','status','numdays');
+        $removables = array('sl','vl','status','numdays');
         foreach($removables as $remove) {
             if($remove==$name)
                 return false;
@@ -83,8 +84,8 @@ class AjaxController extends Controller
                     $field .= $this->elementsWithSelect($name).'</select>';
                 break;
             case 'boolean':
-                $field .= '<div class="form-check"><input class="form-check-input" type="radio" name="'.$name.'" value=true checked><label class="form-check-label">Yes</label></div>';
-                $field .= '<div class="form-check"><input class="form-check-input" type="radio" name="'.$name.'" value=false><label class="form-check-label">No</label></div>';
+                $field .= '<div class="form-check"><input class="form-check-input" type="radio" name="'.$name.'" value=1 checked><label class="form-check-label">Yes</label></div>';
+                $field .= '<div class="form-check"><input class="form-check-input" type="radio" name="'.$name.'" value=0><label class="form-check-label">No</label></div>';
                 break;
             case 'integer':
                 $field .= '<input class="form-control" type="number" name="'.$name.'">';
@@ -127,6 +128,7 @@ class AjaxController extends Controller
             ['field'=>'position_id','table'=>'positions','text'=>'position'],
             ['field'=>'school_id','table'=>'schools','text'=>'school'],
             ['field'=>'course_id','table'=>'courses','text'=>'course'],
+            ['field'=>'level','table'=>'school_levels','text'=>'level'],
         );
 
         $options = null;
@@ -146,8 +148,13 @@ class AjaxController extends Controller
     }
 
     public function saveFormData(Request $request) {
+
         $model = getModelInstance($request->index);
-        $model->create($request->all());
+        switch($request->index) {
+            default:
+                $model->updateOrcreate(request()->except(['_token','index']));
+                break;
+        }
 
         return 1;
     }

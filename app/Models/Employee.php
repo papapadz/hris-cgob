@@ -122,6 +122,6 @@ class Employee extends Model
     }
 
     public function workExperiences() {
-        return $this->hasMany(EmployeeWorkExperience::class,'emp_id','emp_id');
+        return $this->hasMany(EmployeeWorkExperience::class,'emp_id','emp_id')->with(['position','employmentStat']);;
     }
 }

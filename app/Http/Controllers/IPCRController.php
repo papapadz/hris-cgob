@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Session;
 use Illuminate\Http\Request;
-use App\Models\Employee;
-use App\Models\Appointment;
 
-class EmployeeController extends Controller
+class IPCRController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +13,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        return view('pages.employee.index')->with([
-            'employees' => Employee::orderBy('lastname')->get()
-        ]);
+        //
     }
 
     /**
@@ -28,7 +23,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('pages.employee.create');
+        //
     }
 
     /**
@@ -39,18 +34,7 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $employee = Employee::create($request->all());
-        Appointment::create($request->all());
-
-        $filename = FileController::upload($request->file('image'),'img');
-        Employee::where('emp_id',$request->emp_id)->update([
-            'image_url' => $filename
-        ]);
-
-        Session::flash('alert','success');
-        Session::flash('title','Alright! ');
-        Session::flash('message','Employee record created successfully.');
-        return redirect()->back();
+        //
     }
 
     /**
@@ -59,16 +43,9 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, Request $request)
+    public function show($id)
     {
-        $employee = Employee::find($id);
-
-        return view('pages.employee.profile')
-            ->with([
-                'index' => $request['index'],
-                'employee' => $employee,
-                'appointments' => listAppointments($id)
-            ]);
+        //
     }
 
     /**

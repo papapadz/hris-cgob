@@ -22,31 +22,31 @@
                 <div class="card-header">
                   <ul id="profile-tabs" class="nav nav-tabs card-header-tabs nav-fill">
                     <li class="nav-item">
-                      <a class="nav-link active" title="Basic Information" data-toggle="tooltip" data-placement="top" href="#basic">Basic</a>
+                      <a class="nav-link @if($index==0) active @endif" title="Basic Information" data-toggle="tooltip" data-placement="top" href="#basic">Basic</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link"  title="Appointments" data-toggle="tooltip" data-placement="top"  href="#appointment">Appointments</a>
+                      <a class="nav-link @if($index==1) active @endif"  title="Appointments" data-toggle="tooltip" data-placement="top"  href="#appointment">Appointments</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link"  title="Work Experience" data-toggle="tooltip" data-placement="top" href="#workexperience">Work Experience</a>
+                      <a class="nav-link @if($index==2) active @endif"  title="Work Experience" data-toggle="tooltip" data-placement="top" href="#workexperience">Work Experience</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  title="Educational Background" data-toggle="tooltip" data-placement="top"  href="#education">Education</a>
+                        <a class="nav-link @if($index==3) active @endif"  title="Educational Background" data-toggle="tooltip" data-placement="top"  href="#education">Education</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  title="Eligibility" data-toggle="tooltip" data-placement="top" href="#eligibility">Eligibility</a>
+                        <a class="nav-link @if($index==4) active @endif"  title="Eligibility" data-toggle="tooltip" data-placement="top" href="#eligibility">Eligibility</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  title="Trainings" data-toggle="tooltip" data-placement="top" href="#training">Trainings</a>
+                        <a class="nav-link @if($index==5) active @endif"  title="Trainings" data-toggle="tooltip" data-placement="top" href="#training">Trainings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  title="Leave Card" data-toggle="tooltip" data-placement="top" href="#leave">Leave</a>
+                        <a class="nav-link @if($index==6) active @endif"  title="Leave Card" data-toggle="tooltip" data-placement="top" href="#leave">Leave</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  title="Daily Time Record" data-toggle="tooltip" data-placement="top" href="#dtr">DTR</a>
+                        <a class="nav-link @if($index==7) active @endif"  title="Daily Time Record" data-toggle="tooltip" data-placement="top" href="#dtr">DTR</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  title="IPCRF" data-toggle="tooltip" data-placement="top" href="#ipcr">IPCR</a>
+                        <a class="nav-link @if($index==8) active @endif"  title="IPCRF" data-toggle="tooltip" data-placement="top" href="#ipcr">IPCR</a>
                     </li>
                   </ul>
                   <!-- <ul class="nav nav-tabs">
@@ -82,33 +82,33 @@
                 </div>
                 <div class="card-body">
                     <div class="tab-content">
-                        <div class="tab-pane active" id="basic" role="tabpanel">
+                        <div class="tab-pane @if($index==0) active @endif" id="basic" role="tabpanel">
                             @include('pages.employee.include.basic-info')
                             <hr>
                             @include('pages.employee.include.address-info')
                         </div>
-                        <div class="tab-pane" id="appointment" role="tabpanel">
+                        <div class="tab-pane @if($index==1) active @endif" id="appointment" role="tabpanel">
                             @include('pages.appointment.include.appointment-list')
                         </div>
-                        <div class="tab-pane" id="workexperience" role="tabpanel">
+                        <div class="tab-pane @if($index==2) active @endif" id="workexperience" role="tabpanel">
                         @include('pages.workexperience.include.workexperience-list')
                         </div>
-                        <div class="tab-pane" id="education" role="tabpanel">
+                        <div class="tab-pane @if($index==3) active @endif" id="education" role="tabpanel">
                             @include('pages.education.include.education-list')
                         </div>
-                        <div class="tab-pane" id="eligibility" role="tabpanel">
+                        <div class="tab-pane @if($index==4) active @endif" id="eligibility" role="tabpanel">
                             @include('pages.eligibility.include.eligibility-list')
                         </div>
-                        <div class="tab-pane" id="training" role="tabpanel">
+                        <div class="tab-pane @if($index==5) active @endif" id="training" role="tabpanel">
                             @include('pages.training.include.training-list')
                         </div>
-                        <div class="tab-pane" id="leave" role="tabpanel">
+                        <div class="tab-pane @if($index==6) active @endif" id="leave" role="tabpanel">
                             @include('pages.leave.include.leave-list')
                         </div>
-                        <div class="tab-pane" id="dtr" role="tabpanel">
+                        <div class="tab-pane @if($index==7) active @endif" id="dtr" role="tabpanel">
                             @include('pages.dtr.include.dtr-list')
                         </div>
-                        <div class="tab-pane" id="ipcr" role="tabpanel">
+                        <div class="tab-pane @if($index==8) active @endif" id="ipcr" role="tabpanel">
                             @include('pages.ipcr.include.ipcr-list')
                         </div>
                         <button style="display: none; background-color:green" id="addbutton" class="btn float">Add</button>
@@ -153,10 +153,11 @@
 $(document).ready(function() {
     
     var btnpress = 0
-    var tabindex = 0
+    var tabindex = '{{$index ?? 0}}'
+    
     initial()
-    $('table').DataTable()
-
+    var dtable = $('table').DataTable()
+    
     $('#floating-button').on('click', function() {
         if(btnpress==0)
             edit()
@@ -174,11 +175,17 @@ $(document).ready(function() {
                 processData: false,
                 contentType: false,
             }).done(function( response ) {
-                if(response.data==1)
+                $('#myModal').modal('hide')
+                console.log(response)
+                if(response==1) {
                     fireAlert('success','Changes have been saved!')
+                    setInterval(function(){ 
+                        window.location.href = '{{ url("employees/".$employee->emp_id) }}'+'?index='+tabindex
+                    }, 1000)
+                }
                 else
                     fireAlert('danger','An error has occured!')
-                $('#myModal').modal('hide')
+                
         })
     })
 
@@ -186,6 +193,8 @@ $(document).ready(function() {
         
         if(tabindex==1)
             window.location.href = '{{ url("appointments/add/".$employee->emp_id) }}'
+        else if(tabindex==8)
+            window.location.href = '{{ url("ipcr/add/".$employee->emp_id) }}'
 
         $.ajax({
                 method: "GET",
@@ -227,6 +236,8 @@ $(document).ready(function() {
         $('#floating-button').text('Edit')
         $('span.form-control-plaintext').show()
         btnpress = 0
+        if(tabindex>0)
+            togglebuttons(false)
     }
 
     $('.nav-tabs a').click(function(e){

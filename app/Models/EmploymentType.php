@@ -26,4 +26,8 @@ class EmploymentType extends Model
         return $this->belongsTo(Appointment::class,'employmenttype_id','id');
     }
 
+    public function position() {
+        return $this->belongsTo(Position::class,'employmenttype_id','id');
+    }
+
 }

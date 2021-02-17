@@ -23,7 +23,7 @@ class CreateEmployeeTrainingsTable extends Migration
             $table->decimal('hrs',7,2);
             $table->date('startdate');
             $table->date('enddate');
-            $table->bigInteger('address_id');
+            //$table->bigInteger('address_id');
             $table->string('file_url',100)->nullable();
             $table->timestamps();
         });

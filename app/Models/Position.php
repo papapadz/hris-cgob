@@ -12,7 +12,6 @@ class Position extends Model
         'position',
         'sg',
         'level',
-    
     ];
     
     
@@ -24,6 +23,10 @@ class Position extends Model
     ];
 
     public function plantilla() {
+        return $this->belongsTo(Plantilla::class,'position_id','id');
+    }
+
+    public function position() {
         return $this->belongsTo(Plantilla::class,'position_id','id');
     }
 }

@@ -28,4 +28,11 @@ class EmployeeWorkExperience extends Model
     
     ];
     
+    public function position() {
+        return $this->hasOne(Position::class,'id','position_id');
+    }
+
+    public function employmentStat() {
+        return $this->hasOne(EmploymentType::class,'id','employmenttype_id');
+    }
 }

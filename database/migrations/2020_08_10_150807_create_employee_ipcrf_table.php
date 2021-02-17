@@ -19,8 +19,8 @@ class CreateEmployeeIpcrfTable extends Migration
             $table->string('target',255);
             $table->string('accomplishment',255)->nullable();
             $table->date('ipcrfdate');
-            $table->integer('type')->default(0);
-            $table->string('remarks',255);
+            $table->bigInteger('ipcrtype_id');
+            $table->string('remarks',255)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

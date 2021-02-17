@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use DB;
+use Carbon\Carbon;
 use App\Models\School;
 
 class SchoolsSeeder extends Seeder
@@ -23,6 +25,14 @@ class SchoolsSeeder extends Seeder
             ['school' => 'Northwestern University','address_id'=>12812082,'level'=>124,'ispublic'=>false],
             ['school' => 'Divine Word College of Laoag','address_id'=>12812045,'level'=>1234,'ispublic'=>false],
             ['school' => 'Data Center College of the Philippines of Laoag City, Inc.','address_id'=>12812070,'level'=>34,'ispublic'=>false],
+        ]);
+
+        DB::table('school_levels')->insert([
+            ['id' => 1, 'level' => 'Elementary','created_at' => Carbon::now()->toDateString(), 'updated_at' => Carbon::now()->toDateString()],
+            ['id' => 2, 'level' => 'High School','created_at' => Carbon::now()->toDateString(), 'updated_at' => Carbon::now()->toDateString()],
+            ['id' => 3, 'level' => 'Vocational','created_at' => Carbon::now()->toDateString(), 'updated_at' => Carbon::now()->toDateString()],
+            ['id' => 4, 'level' => 'College','created_at' => Carbon::now()->toDateString(), 'updated_at' => Carbon::now()->toDateString()],
+            ['id' => 5, 'level' => 'Graduate Studies','created_at' => Carbon::now()->toDateString(), 'updated_at' => Carbon::now()->toDateString()],
         ]);
     }
 }
