@@ -194,4 +194,20 @@ if (! function_exists('getModelInstance')) {
     }
   }
 }
+
+if (! function_exists('displayTrueFalse')) {
+  function displayTrueFalse($value) {
+    if($value==1)
+      return 'Y';
+    else
+      return 'N';
+  }
+}
+
+if (! function_exists('displayMonetary')) {
+  function displayMonetary($value) {
+    return number_format($value,2);
+  }
+}
+
 ?>

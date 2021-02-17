@@ -22,11 +22,18 @@ Route::group(['middleware' => ['get.menu']], function () {
 
     Route::resources([
         'employees' => 'EmployeeController',
-        'appointments' => 'AppointmentController'
+        'appointments' => 'AppointmentController',
+        'ipcr' => 'IPCRController'
     ]);
 
     Route::get('appointments/add/{id}', function($id) {
         return view('pages.appointment.create',[
+            'employee' => getEmployee($id)
+        ]);
+    });
+
+    Route::get('ipcr/add/{id}', function($id) {
+        return view('pages.ipcr.create',[
             'employee' => getEmployee($id)
         ]);
     });
