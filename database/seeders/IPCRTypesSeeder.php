@@ -22,8 +22,9 @@ class IPCRTypesSeeder extends Seeder
         ]);
 
         DB::table('ipcr_function_types')->insertOrIgnore([
-            ['function' => 'Core Function', 'created_at' => Carbon::now()->toDateString(), 'updated_at' => Carbon::now()->toDateString()],
-            ['function' => 'Support Function', 'created_at' => Carbon::now()->toDateString(), 'updated_at' => Carbon::now()->toDateString()],
+            ['type' => 'Strategic Function', 'created_at' => Carbon::now()->toDateString(), 'updated_at' => Carbon::now()->toDateString()],
+            ['type' => 'Core Function', 'created_at' => Carbon::now()->toDateString(), 'updated_at' => Carbon::now()->toDateString()],
+            ['type' => 'Support Function', 'created_at' => Carbon::now()->toDateString(), 'updated_at' => Carbon::now()->toDateString()],
         ]);
     }
 }

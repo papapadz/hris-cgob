@@ -9,7 +9,7 @@
           </button>
         </div>
         <div id="myModal-body" class="modal-body">
-          @yield('modal-body')
+          
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

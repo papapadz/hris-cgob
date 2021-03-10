@@ -13,7 +13,7 @@ use App\Models\Plantilla;
 use App\Models\Employee;
 use App\Models\EmployeeWorkExperience;
 use App\Models\EmployeeEducation;
- 
+
 class AjaxController extends Controller
 {
     public function getAddress(Request $request) {
@@ -34,9 +34,15 @@ class AjaxController extends Controller
         //     return redirect()->route('appointments.create', [
         //         'employee' => Employee::find($request->emp_id)
         //     ]);
+
+        if($request->index=='ipcr_add_accomplishment') {
+            $model = getModelInstance(8);
+            $fields = ['accomplishment'];
+        } else {
+            $model = getModelInstance($request->index);
+            $fields = $model->getFillable();
+        }
         
-        $model = getModelInstance($request->index);
-        $fields = $model->getFillable();
         $table = $model->getTable();
         $form = '<form id="'.$request->formname.'"><input type="hidden" name="_token" value="'.csrf_token().'"><input type="hidden" name="index" value="'.$request->index.'">';
 
@@ -70,12 +76,14 @@ class AjaxController extends Controller
 
     public function getHTMLElement($name,$type) {
         
-        $removable = ['_','id','date','type','is','year','url'];
+        $removable = ['_','id','date','type','year','url'];
         $field = '<label>'.Str::title(str_replace($removable,'',$name)).'</label>';
         switch($type) {
             case 'string': 
                 if (strpos($name, 'url') !== false)
                     $field .= '<input class="form-control" type="file" name="'.$name.'">';
+                else if(in_array($name,['remarks','accomplishment','target']))
+                    $field .= '<textarea class="form-control" name="'.$name.'"></textarea>';
                 else
                     $field .= '<input class="form-control" type="text" name="'.$name.'">';
                 break;
@@ -129,6 +137,7 @@ class AjaxController extends Controller
             ['field'=>'school_id','table'=>'schools','text'=>'school'],
             ['field'=>'course_id','table'=>'courses','text'=>'course'],
             ['field'=>'level','table'=>'school_levels','text'=>'level'],
+            ['field'=>'functiontype_id','table'=>'ipcr_function_types','text'=>'type'],
         );
 
         $options = null;
@@ -136,8 +145,12 @@ class AjaxController extends Controller
         foreach($fields as $field) {
             if($field['field']==$fieldname) {
 
-                $data = json_decode(DB::table($field['table'])->orderBy($field['text'])->get(),true);
-                foreach($data as $d) {
+                if($fieldname=='leavetype_id') 
+                    $data = json_decode(DB::table($field['table'])->where('is_leave',1)->orderBy($field['text'])->get(),true);
+                else
+                    $data = json_decode(DB::table($field['table'])->orderBy($field['text'])->get(),true);
+                
+                    foreach($data as $d) {
                     $options .= '<option value="'.$d['id'].'">'.$d[$field['text']].'</option>';
                 }
                 break;
@@ -151,8 +164,12 @@ class AjaxController extends Controller
 
         $model = getModelInstance($request->index);
         switch($request->index) {
+            case 6:
+                $leave = new LeaveController;
+                $leave->store($request);
+                break;
             default:
-                $model->updateOrcreate(request()->except(['_token','index']));
+                $model->updateOrcreate($request()->except(['_token','index']));
                 break;
         }
 

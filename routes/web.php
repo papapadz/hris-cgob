@@ -11,7 +11,8 @@
 |
 */
 
-Route::group(['middleware' => ['get.menu']], function () {
+Auth::routes();
+Route::group(['middleware' => ['get.menu','auth']], function () {
     
     Route::prefix('ajax')->group(function () { 
         Route::get('generate/modal/fields','AjaxController@generateFields');
@@ -26,6 +27,10 @@ Route::group(['middleware' => ['get.menu']], function () {
         'ipcr' => 'IPCRController'
     ]);
 
+    Route::get('ipcr/{period}/{emp_id}','IPCRController@view')->name('ipcr.view-items');
+    Route::post('ipcr/ajax/add/accomplishment','IPCRController@addAccomplishment')->name('ipcr.add-accomplishment');
+    Route::post('ipcr/ajax/add/rating','IPCRController@addRating')->name('ipcr.add-rating');
+    
     Route::get('appointments/add/{id}', function($id) {
         return view('pages.appointment.create',[
             'employee' => getEmployee($id)
@@ -86,7 +91,6 @@ Route::group(['middleware' => ['get.menu']], function () {
         });
         Route::resource('notes', 'NotesController');
     });
-    Auth::routes();
 
     Route::resource('resource/{table}/resource', 'ResourceController')->names([
         'index'     => 'resource.index',

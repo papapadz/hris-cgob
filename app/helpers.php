@@ -29,6 +29,8 @@ use App\Models\EmployeePayroll;
 use App\Models\EmployeeTraining;
 use App\Models\EmployeeVoluntaryWork;
 use App\Models\EmployeeWorkExperience;
+use App\Models\MFO;
+use App\Models\EmployeeIpcrfRating;
 
 if (! function_exists('getEmployeeName')) {
   function getEmployeeName($emp_id) {
@@ -191,6 +193,8 @@ if (! function_exists('getModelInstance')) {
       case 6: return new EmployeeLeave;break;
       case 7: return new EmployeeDtr;break;
       case 8: return new EmployeeIpcrf;break;
+      case 9: return new MFO;break;
+      case 9: return new EmployeeIpcrfRating;break;
     }
   }
 }
@@ -210,4 +214,64 @@ if (! function_exists('displayMonetary')) {
   }
 }
 
+if (! function_exists('getIPCRTypes')) {
+  function getIPCRTypes() {
+    return DB::table('ipcr_types')->get();
+  }
+}
+
+if (! function_exists('getIPCRFunctionTypes')) {
+  function getIPCRFunctionTypes() {
+    return DB::table('ipcr_function_types')->get();
+  }
+}
+
+if (! function_exists('getMFO')) {
+  function getMFO($id) {
+    if($id==0)
+      return DB::table('ipcr_mfos')->get();
+    else
+      return DB::table('ipcr_mfos')->where('department_id',$id)->get();
+  }
+}
+
+if (! function_exists('getIPCRAverage')) {
+  function getIPCRAverage($emp_id,$period_id) {
+    $ipcrs = EmployeeIpcrf::where([['emp_id',$emp_id],['period_id',$period_id]])->get();
+    $total = 0;
+    $count = 0;
+    foreach($ipcrs as $ipcr) {
+      foreach($ipcr->ratings as $rating) {
+        $average = ($rating->quality + $rating->effectiveness + $rating->timeliness) / 3; 
+        $total += $average;
+        $count += 1;
+      }
+    }
+    if($total==0)
+      return 'N/A';
+
+    return number_format($total/$count,2);
+  }
+}
+
+if (! function_exists('computeLeave')) {
+  function computeLeave($recent_value,$new_value,$credit_type,$leave_type_object) {
+
+    if($leave_type_object->leave_credit=='any') {
+      return addMinus($leave_type_object->plus_minus,$recent_value,$new_value);
+    } else if($leave_type_object->leave_credit==$credit_type || $leave_type_object->leave_credit=='all') {
+      return addMinus($leave_type_object->plus_minus,$recent_value,$new_value);
+    } else
+      return $recent_value;
+  }
+}
+
+if (! function_exists('addMinus')) {
+  function addMinus($type,$x,$y) {
+    if($type==1)
+      return $x+$y;
+    else
+      return $x-$y;
+  }
+}
 ?>

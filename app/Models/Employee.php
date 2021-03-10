@@ -42,7 +42,7 @@ class Employee extends Model
     /* ************************ ACCESSOR ************************* */
 
     public function appointments() {
-        return $this->hasOne(Appointment::class,'emp_id','emp_id')->orderBy('startdate','desc')->with(['department','plantilla']);
+        return $this->hasOne(Appointment::class,'emp_id')->orderBy('startdate','desc')->with(['department','plantilla']);
     }
 
     public function address() {
@@ -58,70 +58,70 @@ class Employee extends Model
     }
 
     public function applications() {
-        return $this->belongsTo(Applicant::class,'emp_id','emp_id');
+        return $this->belongsTo(Applicant::class,'emp_id');
     }
 
     public function contactDetails() {
-        return $this->hasMany(EmployeeContactDetail::class,'emp_id','emp_id');
+        return $this->hasMany(EmployeeContactDetail::class,'emp_id');
     }
 
     public function dtrs() {
-        return $this->hasMany(EmployeeDtr::class,'emp_id','emp_id');
+        return $this->hasMany(EmployeeDtr::class,'emp_id');
     }
 
     public function educations() {
-        return $this->hasMany(EmployeeEducation::class,'emp_id','emp_id')->with(['school','course']);
+        return $this->hasMany(EmployeeEducation::class,'emp_id')->with(['school','course']);
     }
 
     public function eligibilities() {
-        return $this->hasMany(EmployeeEligibility::class,'emp_id','emp_id');
+        return $this->hasMany(EmployeeEligibility::class,'emp_id');
     }
 
     public function families() {
-        return $this->hasMany(EmployeeFamily::class,'emp_id','emp_id');
+        return $this->hasMany(EmployeeFamily::class,'emp_id');
     }
 
     public function hobbies() {
-        return $this->hasMany(EmployeeHobby::class,'emp_id','emp_id');
+        return $this->hasMany(EmployeeHobby::class,'emp_id');
     }
 
-    public function ipcrfs() {
-        return $this->hasMany(EmployeeIpcrf::class,'emp_id','emp_id')->with('rating');
+    public function ipcrs() {
+        return $this->hasMany(EmployeeIpcrf::class,'emp_id')->with(['ratings','mfo','ipcrtype','period']);
     }
 
     public function leaves() {
-        return $this->hasMany(EmployeeLeave::class,'emp_id','emp_id')->with(['leaveType','leaveDays']);
+        return $this->hasMany(EmployeeLeave::class,'emp_id')->with(['leaveType','leaveDays']);
     }
 
     public function licenses() {
-        return $this->hasMany(EmployeeLicenseNumber::class,'emp_id','emp_id');
+        return $this->hasMany(EmployeeLicenseNumber::class,'emp_id');
     }
 
     public function memberships() {
-        return $this->hasMany(EmployeeMembership::class,'emp_id','emp_id');
+        return $this->hasMany(EmployeeMembership::class,'emp_id');
     }
 
     public function distinctions() {
-        return $this->hasMany(EmployeeNonacademicDistinction::class,'emp_id','emp_id');
+        return $this->hasMany(EmployeeNonacademicDistinction::class,'emp_id');
     }
 
     public function payrolls() {
-        return $this->hasMany(EmployeePayroll::class,'emp_id','emp_id');
+        return $this->hasMany(EmployeePayroll::class,'emp_id');
     }
 
     public function trainings() {
-        return $this->hasMany(EmployeeTraining::class,'emp_id','emp_id')->with(['trainingType']);
+        return $this->hasMany(EmployeeTraining::class,'emp_id')->with(['trainingType']);
     }
 
     public function userAccount() {
-        return $this->hasOne(EmployeeUserAccount::class,'emp_id','emp_id');
+        return $this->hasOne(EmployeeUserAccount::class,'emp_id');
     }
 
     public function voluntaryWorks() {
-        return $this->hasMany(EmployeeVoluntaryWork::class,'emp_id','emp_id');
+        return $this->hasMany(EmployeeVoluntaryWork::class,'emp_id');
     }
 
     public function workExperiences() {
-        return $this->hasMany(EmployeeWorkExperience::class,'emp_id','emp_id')->with(['position','employmentStat']);;
+        return $this->hasMany(EmployeeWorkExperience::class,'emp_id')->with(['position','employmentStat']);;
     }
 }

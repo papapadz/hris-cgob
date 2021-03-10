@@ -11,6 +11,9 @@ class LeaveType extends Model
     protected $fillable = [
         'leavetype',
         'maxvalue',
+        'leave_credit',
+        'is_leave',
+        'plus_minus',
         'description',
     
     ];

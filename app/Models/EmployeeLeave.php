@@ -14,9 +14,6 @@ class EmployeeLeave extends Model
         'numdays',
         'remarks',
         'status',
-        'vl',
-        'sl',
-    
     ];
     
     
@@ -33,5 +30,13 @@ class EmployeeLeave extends Model
 
     public function leaveDays() {
         return $this->hasMany(EmployeeLeaveDate::class,'employeeleave_id','id');
+    }
+
+    public function leaveCard() {
+        return $this->belongsTo(LeaveCard::class,'leave_id','id');
+    }
+
+    public function leaveDetails() {
+        return $this->hasOne(LeaveCard::class,'leave_id','id');
     }
 }

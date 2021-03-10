@@ -21,7 +21,7 @@ p {
 }
 
 .card-container {
-	background-color: 	rgb(46, 184, 92);
+	/* background-color: 	rgb(46, 184, 92); */
 	border-radius: 5px;
 	box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
 	padding-top: 30px;

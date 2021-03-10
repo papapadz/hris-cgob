@@ -20,8 +20,6 @@ class CreateEmployeeLeavesTable extends Migration
             $table->integer('numdays')->default(1);
             $table->string('remarks',50)->nullable();
             $table->integer('status')->default(1);
-            $table->decimal('vl',8,3);
-            $table->decimal('sl',8,3);
             $table->timestamps();
             $table->softDeletes();
         });

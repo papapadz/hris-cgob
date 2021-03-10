@@ -22,7 +22,7 @@
           <td>{{ getEmployeeName($employee->emp_id) }}</td>
         @endif
           <td>
-            {{ $leave->leaveDays[0]->leavedate->format('m-d-Y') }}
+            {{ $leave->leaveDays->first()->leavedate->format('m-d-Y') }}
             @if($leave->numdays>1)
                 to {{ $leave->leaveDays[count($leave->leaveDays)-1]->leavedate->format('m-d-Y') }}
             @endif

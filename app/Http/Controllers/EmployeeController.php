@@ -6,6 +6,7 @@ use Session;
 use Illuminate\Http\Request;
 use App\Models\Employee;
 use App\Models\Appointment;
+use App\Models\EmployeeIpcrf;
 
 class EmployeeController extends Controller
 {
@@ -62,12 +63,12 @@ class EmployeeController extends Controller
     public function show($id, Request $request)
     {
         $employee = Employee::find($id);
-
         return view('pages.employee.profile')
             ->with([
                 'index' => $request['index'],
                 'employee' => $employee,
-                'appointments' => listAppointments($id)
+                'appointments' => listAppointments($id),
+                'ipcrs' => EmployeeIpcrf::select('emp_id','period_id','type_id')->where('emp_id',$id)->groupBy('emp_id','period_id','type_id')->get()
             ]);
     }
 

@@ -121,6 +121,13 @@
       select2 = $('select').select2({
           theme: 'bootstrap4'
         })
+
+        alerts()
+
+        function alerts() {
+          if('{{isset($fireAlert)}}')
+            fireAlert('{{ $fireAlert ?? "success" }}','Changes have been saved!')
+        }
     </script>
     <script type="text/javascript">
       $(document).ready(function() {
