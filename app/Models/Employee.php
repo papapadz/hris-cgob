@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use DB;
 
 class Employee extends Model
 {
@@ -90,7 +91,7 @@ class Employee extends Model
     }
 
     public function leaves() {
-        return $this->hasMany(EmployeeLeave::class,'emp_id')->with(['leaveType','leaveDays']);
+        return $this->hasMany(EmployeeLeave::class,'emp_id')->with(['leaveType','leaveDays','leaveCard','leaveDetails']);
     }
 
     public function licenses() {
@@ -124,4 +125,16 @@ class Employee extends Model
     public function workExperiences() {
         return $this->hasMany(EmployeeWorkExperience::class,'emp_id')->with(['position','employmentStat']);;
     }
+
+    public function getLeaveCredits($type) {
+
+        $today = \Carbon\Carbon::now();
+
+        return $this->hasMany(EmployeeLeave::class,'emp_id')
+                    ->where('leavetype_id',$type)
+                    ->join('employee_leave_dates','employee_leave_dates.employeeleave_id','=','employee_leaves.id')
+                    ->whereBetween('leavedate',[$today->startOfYear()->toDateString(),$today->endOfYear()->toDateString()])
+                    ->get();
+    }
+
 }

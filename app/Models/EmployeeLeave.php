@@ -39,4 +39,8 @@ class EmployeeLeave extends Model
     public function leaveDetails() {
         return $this->hasOne(LeaveCard::class,'leave_id','id');
     }
+
+    public function employee() {
+        return $this->belongsTo(Employee::class,'emp_id');
+    }
 }

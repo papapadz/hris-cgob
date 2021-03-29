@@ -60,7 +60,14 @@ class LeaveController extends Controller
      */
     public function show($id)
     {
-        //
+        $leave = EmployeeLeave::find($id);
+        return view('pages.leave.view')
+            ->with([
+                'index' => 6,
+                'employee' => $leave->employee,
+                'appointments' => listAppointments($id),
+                'leave' => $leave
+            ]);
     }
 
     /**
@@ -129,8 +136,8 @@ class LeaveController extends Controller
     }
 
     public function createEmployeeLeave($data) {
-
-        $days = explode(',',$data['numdays']);
+       
+        $days = explode(',',$data['days']);
 
         $leave = EmployeeLeave::create([
             'emp_id' => $data['emp_id'],

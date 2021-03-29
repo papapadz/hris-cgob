@@ -137,10 +137,10 @@ if (! function_exists('leaveStatus')) {
 
   function leaveStatus($id) {
     switch($id) {
-      case 1: return 'Pending';
-      case 2: return 'Approved';
-      case 3: return 'Disapproved';
-      case 4: return 'Cancelled';
+      case 1: echo '<span class="badge badge-secondary">Pending</span>';break;
+      case 2: echo '<span class="badge badge-success">Approved</span>';break;
+      case 3: echo '<span class="badge badge-danger">Disapproved</span>';break;
+      case 4: echo '<span class="badge badge-danger">Pending</span>';break;
     }
   }
 }
@@ -272,6 +272,19 @@ if (! function_exists('addMinus')) {
       return $x+$y;
     else
       return $x-$y;
+  }
+}
+
+if (! function_exists('leaveCredits')) {
+  function leaveCredits($emp_id) {
+    
+
+    $employee = Employee::find($emp_id);
+     dd($employee->getLeaveCredits(6));
+    echo '<span class="badge badge-primary">VL:'.$employee->leaves->first()->leaveDetails->vl.'</span>';
+    echo '<span class="badge badge-warning">SL:'.$employee->leaves->first()->leaveDetails->sl.'</span>';
+    echo '<span class="badge badge-success">FL:'.$fl.'</span>';
+    echo '<span class="badge badge-primary">SPL:'.$spl.'</span>';
   }
 }
 ?>

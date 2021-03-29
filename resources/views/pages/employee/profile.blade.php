@@ -73,6 +73,12 @@
                                 @include('pages.training.include.training-list')
                             </div>
                             <div class="tab-pane @if($index==6) active @endif" id="leave" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-12">
+                                        {{ leaveCredits($employee->emp_id) }}
+                                        <hr>
+                                    </div>
+                                </div>
                                 @include('pages.leave.include.leave-list')
                             </div>
                             <div class="tab-pane @if($index==7) active @endif" id="dtr" role="tabpanel">
