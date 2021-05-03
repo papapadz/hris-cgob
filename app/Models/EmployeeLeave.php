@@ -37,7 +37,7 @@ class EmployeeLeave extends Model
     }
 
     public function leaveDetails() {
-        return $this->hasOne(LeaveCard::class,'leave_id','id');
+        return $this->hasOne(LeaveCard::class,'leave_id','id')->latest();
     }
 
     public function employee() {

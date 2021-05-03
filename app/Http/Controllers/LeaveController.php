@@ -41,15 +41,21 @@ class LeaveController extends Controller
      */
     public function store(Request $request)
     {
-        $leave = $this::createEmployeeLeave(array(
+        $leave = $this->createEmployeeLeave(array(
             'emp_id' => $request->emp_id,
             'leavetype_id' => $request->leavetype_id,
             'remarks' => $request->remarks,
             'days' => $request->leavedays,
         ));
         
-        $this::createLeaveCard($leave,$leave->numdays);
-        return 1;
+        $return_val = $this->createLeaveCard($leave,$leave->numdays);
+        if($return_val != 'ERROR')
+            return 1;
+        else {
+            $leave->delete();
+            EmployeeLeaveDate::where('employeeleave_id',$leave->id)->delete();
+            return 'ERROR';
+        }
     }
 
     /**
@@ -111,14 +117,14 @@ class LeaveController extends Controller
         $days = $last_of_month->diffInDays($appointment->startdate);
         $leave_table = DB::table('leave_table')->where([['unit','day'],['num',$days]])->first();
 
-        $leave = createEmployeeLeave(array(
+        $leave = $this->createEmployeeLeave(array(
             'emp_id' => $emp_id,
             'leavetype_id' => LeaveType::select('id')->where('leavetype','Initial Leave Credits')->first()->id,
             'remarks' => 'Initial leave credits of the employee',
-            'numdays' => $appointment->startdate->toDateString()
+            'days' => $appointment->startdate->toDateString()
         ));
 
-        $this::createLeaveCard($leave,$leave_table->value);
+        $this->createLeaveCard($leave,$leave_table->value);
         return 1;
     }
 
@@ -131,7 +137,7 @@ class LeaveController extends Controller
             'numdays' => $dateadd
         ));
 
-        $this::createLeaveCard($leave,1.25);
+        $this->createLeaveCard($leave,1.25);
         return 1;
     }
 
@@ -169,12 +175,18 @@ class LeaveController extends Controller
             $vl = $recentleavedata->vl;
             $sl = $recentleavedata->sl;
         }
+        
+        $computed_vl = computeLeave($vl,$value,'vl',$leave->leaveType);
+        $computed_sl = computeLeave($sl,$value,'sl',$leave->leaveType);
 
-        LeaveCard::create([
-            'leave_id' => $leave->id,
-            'value' => $value,
-            'vl' => computeLeave($vl,$value,'vl',$leave->leaveType),
-            'sl' => computeLeave($sl,$value,'sl',$leave->leaveType)
-        ]);
+        if($computed_vl == 'ERROR' || $computed_sl == 'ERROR')
+            LeaveCard::create([
+                'leave_id' => $leave->id,
+                'value' => $value,
+                'vl' => $computed_vl,
+                'sl' => $computed_sl
+            ]);
+        else
+            return 'ERROR';
     }
 }

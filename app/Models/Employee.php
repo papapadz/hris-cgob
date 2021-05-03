@@ -129,12 +129,15 @@ class Employee extends Model
     public function getLeaveCredits($type) {
 
         $today = \Carbon\Carbon::now();
+        $max = DB::table('leave_types')->where('id',$type)->first()->maxvalue;
 
-        return $this->hasMany(EmployeeLeave::class,'emp_id')
+        $leave_credits = $this->hasMany(EmployeeLeave::class,'emp_id')
                     ->where('leavetype_id',$type)
                     ->join('employee_leave_dates','employee_leave_dates.employeeleave_id','=','employee_leaves.id')
                     ->whereBetween('leavedate',[$today->startOfYear()->toDateString(),$today->endOfYear()->toDateString()])
-                    ->get();
+                    ->count();
+
+        return ($max-$leave_credits);
     }
 
 }

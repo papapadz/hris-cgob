@@ -28,18 +28,28 @@
             @endif
           </td>
           <td>{{ $leave->leaveType->leavetype }}</td>
-          <td>{{ $leave->vl }}</td>
-          <td>{{ $leave->sl }}</td>
-          <td>{{ leaveStatus($leave->status) }}</td>
+          <td>{{ $leave->leaveDetails->vl }}</td>
+          <td>{{ $leave->leaveDetails->sl }}</td>
           <td>
-            <a href="{{ url('/leaves/' . $leave->id) }}" class="btn btn-block btn-primary">View</a>
+            @if($leave->leaveType->is_leave)
+              {{ leaveStatus($leave->status) }}
+            @else
+              <span class="badge badge-success">Update</span>
+            @endif
           </td>
           <td>
+            @if($leave->leaveType->is_leave)
+              <a href="{{ url('/leaves/' . $leave->id) }}" class="btn btn-block btn-primary">View</a>
+            @endif
+          </td>
+          <td>
+            @if($leave->leaveType->is_leave)
             <form action="{{ route('appointments.destroy', $leave->id ) }}" method="POST">
                 @method('DELETE')
                 @csrf
                 <button class="btn btn-block btn-danger">Delete</button>
             </form>
+            @endif
           </td>
         </tr>
       @endforeach

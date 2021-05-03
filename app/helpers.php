@@ -270,21 +270,23 @@ if (! function_exists('addMinus')) {
   function addMinus($type,$x,$y) {
     if($type==1)
       return $x+$y;
-    else
-      return $x-$y;
+    else {
+      if($x>=$y)
+        return $x-$y;
+      else
+        return 'ERROR';
+    }
   }
 }
 
 if (! function_exists('leaveCredits')) {
   function leaveCredits($emp_id) {
     
-
     $employee = Employee::find($emp_id);
-     dd($employee->getLeaveCredits(6));
-    echo '<span class="badge badge-primary">VL:'.$employee->leaves->first()->leaveDetails->vl.'</span>';
-    echo '<span class="badge badge-warning">SL:'.$employee->leaves->first()->leaveDetails->sl.'</span>';
-    echo '<span class="badge badge-success">FL:'.$fl.'</span>';
-    echo '<span class="badge badge-primary">SPL:'.$spl.'</span>';
+    echo '<span class="badge badge-primary mr-2">VL: '.$employee->leaves->first()->leaveDetails->vl.'</span>';
+    echo '<span class="badge badge-warning mr-2">SL: '.$employee->leaves->first()->leaveDetails->sl.'</span>';
+    echo '<span class="badge badge-success mr-2">FL: '.$employee->getLeaveCredits(3).'</span>';
+    echo '<span class="badge badge-primary mr-2">SPL: '.$employee->getLeaveCredits(4).'</span>';
   }
 }
 ?>

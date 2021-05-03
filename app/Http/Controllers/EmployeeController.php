@@ -51,6 +51,8 @@ class EmployeeController extends Controller
         Session::flash('alert','success');
         Session::flash('title','Alright! ');
         Session::flash('message','Employee record created successfully.');
+        $leave = new LeaveController;
+        $leave->initial($request->emp_id);
         return redirect()->back();
     }
 
