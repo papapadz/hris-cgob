@@ -18,6 +18,7 @@ class CreatePayrollItemsTable extends Migration
             $table->string('payrollitem',50);
             $table->integer('type');
             $table->string('description',100);
+            $table->decimal('value',7,2)->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -25,7 +25,8 @@ Route::group(['middleware' => ['get.menu','auth']], function () {
         'employees' => 'EmployeeController',
         'appointments' => 'AppointmentController',
         'ipcr' => 'IPCRController',
-        'leaves' => 'LeaveController'
+        'leaves' => 'LeaveController',
+        'payroll' => 'PayrollController'
     ]);
 
     Route::get('ipcr/{period}/{emp_id}','IPCRController@view')->name('ipcr.view-items');

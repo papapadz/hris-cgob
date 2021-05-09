@@ -283,6 +283,11 @@ if (! function_exists('leaveCredits')) {
   function leaveCredits($emp_id) {
     
     $employee = Employee::find($emp_id);
+    if($employee->leaves->isEmpty()) {
+      $leavecontroller = new \App\Http\Controllers\LeaveController;
+      $leavecontroller->initial($emp_id);
+    }
+    //dd($employee->leaves);
     echo '<span class="badge badge-primary mr-2">VL: '.$employee->leaves->first()->leaveDetails->vl.'</span>';
     echo '<span class="badge badge-warning mr-2">SL: '.$employee->leaves->first()->leaveDetails->sl.'</span>';
     echo '<span class="badge badge-success mr-2">FL: '.$employee->getLeaveCredits(3).'</span>';

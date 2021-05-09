@@ -19,7 +19,6 @@
                         <option value="{{ $province->id }}">{{ $province->province }}</option>
                     @endforeach
                 @endif
-                
             </select>
         </div>
     </div>
