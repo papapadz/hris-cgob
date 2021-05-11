@@ -43,7 +43,8 @@ class DatabaseSeeder extends Seeder
             // PositionsSeeder::class,
             // AppointmentTypesSeeder::class,
             // AppointmentsSeeder::class,
-            // EmployeeSeeder::class
+            // EmployeeSeeder::class,
+            PayrollItemsSeeder::Class
         ]);
     }
 }

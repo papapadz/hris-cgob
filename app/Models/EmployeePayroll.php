@@ -27,4 +27,12 @@ class EmployeePayroll extends Model
     
     ];
 
+    public function payrollGeneration() {
+        return $this->belongsTo(EmployeePayrollGeneration::class,'id','employeepayroll_id');
+    }
+
+    public function payrollItem() {
+        return $this->hasOne(PayrollItem::class,'id','payrollitem_id');
+    }
+
 }

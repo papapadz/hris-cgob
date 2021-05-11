@@ -24,4 +24,12 @@ class EmployeePayrollGeneration extends Model
     
     ];
 
+    public function employeePayroll() {
+        return $this->hasMany(EmployeePayroll::class,'id','employeepayroll_id')->with('payrollItem');
+    }
+
+    public function generatedBy() {
+        return $this->hasOne(Employee::class,'emp_id','generatedby');
+    }
+
 }

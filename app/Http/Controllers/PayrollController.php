@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\EmployeePayroll;
+use App\Models\EmployeePayrollGeneration;
+use App\Models\Employee;
 
 class PayrollController extends Controller
 {
@@ -13,7 +16,20 @@ class PayrollController extends Controller
      */
     public function index()
     {
-        //
+        //get unique payroll date
+        $data = EmployeePayrollGeneration::select('payrolldate')
+            ->orderBy('payrolldate','desc')
+            ->groupBy('payrolldate')
+            ->get();
+            
+        $payrolls = [];
+        foreach($data as $d) {
+            //get the payroll generation by payrolldate
+            $val = EmployeePayrollGeneration::where('payrolldate',$d->payrolldate)->first();
+            array_push($payrolls,$val);
+        }
+        
+        return view('pages.payroll.index')->with(['payrolls' => $payrolls]);
     }
 
     /**
@@ -44,8 +60,22 @@ class PayrollController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
+    {   
+        $data = EmployeePayrollGeneration::where('payrolldate',EmployeePayrollGeneration::find($id)->payrolldate)
+            ->with('employeePayroll')
+            ->get();
+        
+        $emp = [];
+        foreach($data as $d) {
+            array_push($emp,$d->employeePayroll[0]->emp_id);
+        }
+
+        foreach(array_unique($emp) as $emp_id) {
+            $employees = Employee::find($emp_id);
+        }
+
+        return view('pages.payroll.view')->with(['employees'=>$employees]);
+        
     }
 
     /**
