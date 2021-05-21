@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Session;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Employee;
 use App\Models\Appointment;
@@ -40,13 +41,13 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $employee = Employee::create($request->all());
-        Appointment::create($request->all());
+        // $employee = Employee::create($request->all());
+        // Appointment::create($request->all());
 
-        $filename = FileController::upload($request->file('image'),'img');
-        Employee::where('emp_id',$request->emp_id)->update([
-            'image_url' => $filename
-        ]);
+        // $filename = FileController::upload($request->file('image'),'img');
+        // Employee::where('emp_id',$request->emp_id)->update([
+        //     'image_url' => $filename
+        // ]);
 
         Session::flash('alert','success');
         Session::flash('title','Alright! ');
@@ -65,6 +66,26 @@ class EmployeeController extends Controller
     public function show($id, Request $request)
     {
         $employee = Employee::find($id);
+
+        $latest_leave = $employee->leaves->last();
+        
+        if($latest_leave->leavetype_id == 19 || $latest_leave->leavetype_id == 15) {
+            
+            $latest_date_updated = Carbon::parse($latest_leave->leaveDays->first()->leavedate);
+            
+            if($latest_date_updated->isBefore(Carbon::now())) {
+                
+                $diff = $latest_date_updated->diffInMonths(Carbon::now());
+                
+                if($diff>0) {
+                    $leave = new LeaveController;
+
+                    for($i=1;$i<=$diff;$i++)
+                        $leave->increment($id,$latest_date_updated->addMonth(1)->toDateString());
+                }
+            }
+        }
+
         return view('pages.employee.profile')
             ->with([
                 'index' => $request['index'],

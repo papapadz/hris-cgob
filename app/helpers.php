@@ -288,8 +288,8 @@ if (! function_exists('leaveCredits')) {
       $leavecontroller->initial($emp_id);
     }
     //dd($employee->leaves);
-    echo '<span class="badge badge-primary mr-2">VL: '.$employee->leaves->first()->leaveDetails->vl.'</span>';
-    echo '<span class="badge badge-warning mr-2">SL: '.$employee->leaves->first()->leaveDetails->sl.'</span>';
+    echo '<span class="badge badge-primary mr-2">VL: '.$employee->leaves->last()->leaveDetails->vl.'</span>';
+    echo '<span class="badge badge-warning mr-2">SL: '.$employee->leaves->last()->leaveDetails->sl.'</span>';
     echo '<span class="badge badge-success mr-2">FL: '.$employee->getLeaveCredits(3).'</span>';
     echo '<span class="badge badge-primary mr-2">SPL: '.$employee->getLeaveCredits(4).'</span>';
   }

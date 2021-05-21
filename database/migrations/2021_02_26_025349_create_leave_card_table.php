@@ -16,9 +16,9 @@ class CreateLeaveCardTable extends Migration
         Schema::create('leave_cards', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('leave_id');
-            $table->decimal('value',3);
-            $table->decimal('vl',3);
-            $table->decimal('sl',3);
+            $table->decimal('value',3,3);
+            $table->decimal('vl',6,3);
+            $table->decimal('sl',6,3);
             $table->timestamps();
         });
     }

@@ -123,18 +123,17 @@ class LeaveController extends Controller
             'remarks' => 'Initial leave credits of the employee',
             'days' => $appointment->startdate->toDateString()
         ));
-
         $this->createLeaveCard($leave,$leave_table->value);
         return 1;
     }
 
     public function increment($emp_id,$dateadd) {
 
-        $leave = createEmployeeLeave(array(
+        $leave = $this->createEmployeeLeave(array(
             'emp_id' => $emp_id,
             'leavetype_id' => LeaveType::select('id')->where('leavetype','Monthly Increment')->first()->id,
             'remarks' => 'Increment of the month',
-            'numdays' => $dateadd
+            'days' => $dateadd
         ));
 
         $this->createLeaveCard($leave,1.25);
@@ -168,9 +167,9 @@ class LeaveController extends Controller
         $recentleavedata = EmployeeLeave::select('sl','vl')
             ->where('emp_id',$leave->emp_id)
             ->join('leave_cards','leave_cards.leave_id','=','employee_leaves.id')
-            ->orderBy('leave_cards.created_at','desc')
+            ->latest('leave_cards.id')
             ->first();
-
+            
         if($recentleavedata) {
             $vl = $recentleavedata->vl;
             $sl = $recentleavedata->sl;
@@ -178,8 +177,8 @@ class LeaveController extends Controller
         
         $computed_vl = computeLeave($vl,$value,'vl',$leave->leaveType);
         $computed_sl = computeLeave($sl,$value,'sl',$leave->leaveType);
-
-        if($computed_vl == 'ERROR' || $computed_sl == 'ERROR')
+        
+        if($computed_vl != 'ERROR' || $computed_sl != 'ERROR')
             LeaveCard::create([
                 'leave_id' => $leave->id,
                 'value' => $value,
