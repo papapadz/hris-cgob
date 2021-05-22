@@ -11,9 +11,7 @@ class Employee extends Model
     use SoftDeletes;
 
     protected $primaryKey = 'emp_id';
-    protected $casts = [
-        'emp_id' => 'string'
-    ];
+    
     protected $fillable = [
         'emp_id',
         'lastname',
@@ -109,11 +107,7 @@ class Employee extends Model
     }
 
     public function payrolls() {
-        return $this->hasMany(EmployeePayroll::class,'emp_id')->with('payrollItem');
-    }
-
-    public function payrollsGenerations() {
-        return $this->hasManyThrough(EmployeePayrollGeneration::class,EmployeePayroll::class);
+        return $this->hasMany(EmployeePayroll::class,'emp_id');
     }
 
     public function trainings() {

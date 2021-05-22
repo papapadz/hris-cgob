@@ -12,7 +12,7 @@ class PayrollItem extends Model
         'payrollitem',
         'type',
         'description',
-        
+    
     ];
     
     

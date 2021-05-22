@@ -16,8 +16,8 @@ class CreateEmployeePayrollGenerationsTable extends Migration
         Schema::create('employee_payroll_generations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('employeepayroll_id');
-            $table->bigInteger('payroll_generation_id');
-            $table->decimal('value',7,2);
+            $table->date('payrolldate');
+            $table->string('generatedby',20);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -31,7 +31,6 @@ use App\Models\EmployeeVoluntaryWork;
 use App\Models\EmployeeWorkExperience;
 use App\Models\MFO;
 use App\Models\EmployeeIpcrfRating;
-use App\Models\EmployeePayrollGeneration;
 
 if (! function_exists('getEmployeeName')) {
   function getEmployeeName($emp_id) {
@@ -293,23 +292,6 @@ if (! function_exists('leaveCredits')) {
     echo '<span class="badge badge-warning mr-2">SL: '.$employee->leaves->last()->leaveDetails->sl.'</span>';
     echo '<span class="badge badge-success mr-2">FL: '.$employee->getLeaveCredits(3).'</span>';
     echo '<span class="badge badge-primary mr-2">SPL: '.$employee->getLeaveCredits(4).'</span>';
-  }
-}
-
-if (! function_exists('getPayrollGenerationItems')) {
-  function getPayrollGenerationItems($emp_id,$type,$payroll_generation_id) {
-    $payroll = EmployeePayrollGeneration::select('employee_payroll_generations.*','payroll_items.payrollitem')
-      ->where([
-          ['emp_id',$emp_id],['payroll_items.type',$type],['payroll_generation_id',$payroll_generation_id]
-        ])
-      ->join('employee_payrolls','employee_payrolls.id','=','employee_payroll_generations.employeepayroll_id')
-      ->join('payroll_items','payroll_items.id','=','employee_payrolls.payrollitem_id');
-    
-    $data = array(
-      'items' => $payroll->get(),
-      'sum' => $payroll->sum('employee_payroll_generations.value')
-    );
-    return $data;
   }
 }
 ?>

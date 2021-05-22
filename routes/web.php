@@ -29,10 +29,6 @@ Route::group(['middleware' => ['get.menu','auth']], function () {
         'payroll' => 'PayrollController'
     ]);
 
-    Route::get('employee/payroll/{emp_id}','PayrollController@show');
-    Route::get('employee/payroll/{emp_id}/update','PayrollController@update');
-    Route::get('employee/payroll/generation/{payroll_generation_id}','PayrollController@view');
-
     Route::get('ipcr/{period}/{emp_id}','IPCRController@view')->name('ipcr.view-items');
     Route::post('ipcr/ajax/add/accomplishment','IPCRController@addAccomplishment')->name('ipcr.add-accomplishment');
     Route::post('ipcr/ajax/add/rating','IPCRController@addRating')->name('ipcr.add-rating');
