@@ -22,7 +22,8 @@ class MenuController extends Controller
 
     public function index(Request $request){
         return view('dashboard.editmenu.menu.index', array(
-            'menulist'  => Menulist::all()
+            'menulist'  => Menulist::all(),
+            'menus' => Menus::all()
         ));
     }
 

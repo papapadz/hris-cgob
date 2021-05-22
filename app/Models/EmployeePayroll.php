@@ -35,4 +35,7 @@ class EmployeePayroll extends Model
         return $this->hasOne(PayrollItem::class,'id','payrollitem_id');
     }
 
+    public function employee() {
+        return $this->belongsTp(Employee::class,'emp_id');
+    }
 }
