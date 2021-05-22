@@ -10,14 +10,13 @@ class EmployeePayrollGeneration extends Model
     use SoftDeletes;
     protected $fillable = [
         'employeepayroll_id',
-        'payrolldate',
-        'generatedby',
+        'payroll_generation_id',
+        'value',
     
     ];
     
     
     protected $dates = [
-        'payrolldate',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -25,11 +24,11 @@ class EmployeePayrollGeneration extends Model
     ];
 
     public function employeePayroll() {
-        return $this->hasMany(EmployeePayroll::class,'id','employeepayroll_id')->with('payrollItem');
+        return $this->hasMany(EmployeePayroll::class,'id','employeepayroll_id')->with(['payrollItem']);
     }
 
-    public function generatedBy() {
-        return $this->hasOne(Employee::class,'emp_id','generatedby');
+    public function payrollGeneration() {
+        return $this->belongsTo(PayrollGeneration::class,'payroll_generation_id','id');
     }
 
 }
