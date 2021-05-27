@@ -9,7 +9,8 @@ class Applicant extends Model
     protected $fillable = [
         'applicant_id',
         'plantilla_id',
-    
+        'is_outsider',
+        'status'
     ];
     
     
@@ -22,7 +23,7 @@ class Applicant extends Model
     /* ************************ ACCESSOR ************************* */
 
     public function employee() {
-        return $this->hasOne(Employee::class,'emp_id','emp_id');
+        return $this->hasOne(Employee::class,'emp_id','applicant_id')->with(['workExperiences']);
     }
 
     public function ratings() {

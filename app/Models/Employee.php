@@ -44,12 +44,16 @@ class Employee extends Model
 
     /* ************************ ACCESSOR ************************* */
 
-    public function appointments() {
-        return $this->hasOne(Appointment::class,'emp_id')->orderBy('startdate','desc')->with(['department','plantilla']);
-    }
-
     public function address() {
         return $this->hasOne(Barangay::class,'id','address_id')->with('town');
+    }
+
+    public function applications() {
+        return $this->belongsTo(Applicant::class,'emp_id','applicant_id');
+    }
+
+    public function appointments() {
+        return $this->hasOne(Appointment::class,'emp_id')->orderBy('startdate','desc')->with(['department','plantilla']);
     }
 
     public function citizenship() {
@@ -58,10 +62,6 @@ class Employee extends Model
 
     public function civilStatus() {
         return $this->hasOne(CivilStatus::class,'id','civilstat_id');
-    }
-
-    public function applications() {
-        return $this->belongsTo(Applicant::class,'emp_id');
     }
 
     public function contactDetails() {

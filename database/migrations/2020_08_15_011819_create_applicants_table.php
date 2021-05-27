@@ -17,6 +17,8 @@ class CreateApplicantsTable extends Migration
             $table->bigIncrements('id');
             $table->string('applicant_id',20);
             $table->bigInteger('plantilla_id');
+            $table->boolean('is_outsider')->default(true);
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

@@ -26,7 +26,8 @@ Route::group(['middleware' => ['get.menu','auth']], function () {
         'appointments' => 'AppointmentController',
         'ipcr' => 'IPCRController',
         'leaves' => 'LeaveController',
-        'payroll' => 'PayrollController'
+        'payroll' => 'PayrollController',
+        'applicants' => 'ApplicantController'
     ]);
 
     Route::get('employee/payroll/{emp_id}','PayrollController@show');
