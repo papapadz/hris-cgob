@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="card-header">
                       <i class="fa fa-align-justify"></i>{{ __('Applicants') }}
-                      <a href="{{ route('payroll.create') }}" class="btn btn-success float-right">{{ __('New Applicant') }}</a>
+                      <button class="btn btn-success float-right" onclick="newApplicant()">{{ __('New Applicant') }}</button>
                     </div>
                     <div class="card-body">
                         <table class="table table-responsive-sm table-striped">
@@ -57,6 +57,23 @@ $(document).ready(function() {
       'order': [0,'desc']
   })
 })
+
+function newApplicant() {
+  Swal.fire({
+    title: 'Do you want to save the changes?',
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: `Save`,
+    denyButtonText: `Don't save`,
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      Swal.fire('Saved!', '', 'success')
+    } else if (result.isDenied) {
+      Swal.fire('Changes are not saved', '', 'info')
+    }
+  })
+}
 </script>
 @endsection
 
