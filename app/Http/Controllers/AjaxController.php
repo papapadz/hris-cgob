@@ -13,6 +13,8 @@ use App\Models\Plantilla;
 use App\Models\Employee;
 use App\Models\EmployeeWorkExperience;
 use App\Models\EmployeeEducation;
+use App\Models\School;
+use App\Models\Course;
 
 class AjaxController extends Controller
 {
@@ -174,5 +176,25 @@ class AjaxController extends Controller
         }
 
         return 1;
+    }
+
+    public function getSchoolByLevel(Request $request) {
+        
+        return School::where('level','like','%'.$request->level.'%')->orderBy('school')->get();
+    }
+
+    public function getCoursesByLevel(Request $request) {
+
+        return Course::where('level',$request->level)->orderBy('course')->get();
+    }
+
+    public function setApplicantDetails(Request $request,$target) {
+        
+        switch($target) {
+            case 'basic': 
+                $applicant = new ApplicantController;
+                $applicant->store($request);    
+            break;
+        }
     }
 }

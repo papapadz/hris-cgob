@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Session;
+use DB;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Employee;
@@ -41,13 +42,7 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        // $employee = Employee::create($request->all());
-        // Appointment::create($request->all());
-
-        // $filename = FileController::upload($request->file('image'),'img');
-        // Employee::where('emp_id',$request->emp_id)->update([
-        //     'image_url' => $filename
-        // ]);
+        $this->createEmployee($request);
 
         Session::flash('alert','success');
         Session::flash('title','Alright! ');
@@ -127,5 +122,18 @@ class EmployeeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function createEmployee(Request $request) {
+       
+        $employee = Employee::create($request->all());
+        Appointment::create($request->all());
+
+        $filename = FileController::upload($request->file('image'),'img');
+        Employee::where('emp_id',$request->emp_id)->update([
+            'image_url' => $filename
+        ]);
+
+        return $employee;
     }
 }

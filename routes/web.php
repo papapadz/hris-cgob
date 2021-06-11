@@ -19,6 +19,9 @@ Route::group(['middleware' => ['get.menu','auth']], function () {
         Route::get('get/address','AjaxController@getAddress');
         Route::get('get/plantilla','AjaxController@getPlantilla');
         Route::post('save/formdata','AjaxController@saveFormData');
+        Route::get('get/schools/by-level','AjaxController@getSchoolByLevel');
+        Route::get('get/courses/by-level','AjaxController@getCoursesByLevel');
+        Route::post('set/applicant/{target}/save','AjaxController@setApplicantDetails');
     });
 
     Route::resources([
@@ -27,7 +30,11 @@ Route::group(['middleware' => ['get.menu','auth']], function () {
         'ipcr' => 'IPCRController',
         'leaves' => 'LeaveController',
         'payroll' => 'PayrollController',
-        'applicants' => 'ApplicantController'
+        'applicants' => 'ApplicantController',
+        'education' => 'EducationController',
+        'training' => 'TrainingController',
+        'eligibility' => 'EligibilityController',
+        'work-experience' => 'WorkExpController'
     ]);
 
     Route::get('employee/payroll/{emp_id}','PayrollController@show');

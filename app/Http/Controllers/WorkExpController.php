@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Models\Applicant;
-use App\Models\Employee;
 
-class ApplicantController extends Controller
+class WorkExpController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +13,7 @@ class ApplicantController extends Controller
      */
     public function index()
     {
-        $applicants = Applicant::get();
-
-        return view('pages.applicant.index')->with('applicants',$applicants);
+        //
     }
 
     /**
@@ -28,7 +23,7 @@ class ApplicantController extends Controller
      */
     public function create()
     {
-        return view('pages.applicant.create')->with('employees',Employee::select('emp_id')->orderBy('lastname')->get());
+        //
     }
 
     /**
@@ -39,17 +34,7 @@ class ApplicantController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->emp_id==0) {
-
-            $generated_id = 'APP'.Carbon::now()->format('y').'-'.Carbon::now()->format('m').str_pad((Employee::count()+1), 5, "0", STR_PAD_LEFT);
-            
-            $request->merge([
-                'emp_id' => $generated_id
-            ]);
-        }
-
-        $employee = new EmployeeController;
-        return $employee->createEmployee($request);
+        //
     }
 
     /**

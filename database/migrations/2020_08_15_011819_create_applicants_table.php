@@ -20,6 +20,7 @@ class CreateApplicantsTable extends Migration
             $table->boolean('is_outsider')->default(true);
             $table->integer('status')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

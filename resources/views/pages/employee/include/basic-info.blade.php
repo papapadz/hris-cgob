@@ -1,9 +1,11 @@
+    @isset($employee)
     <div class="form-group row">
         <div class="col-md-6">
             <label>Employee ID Number</label>
             <input class="form-control" value="{{ $employee->emp_id ?? null }}" type="text" placeholder="{{ __('Employee ID Number') }}" name="emp_id" required autofocus>
         </div>
     </div>
+    @endisset
 
     <div class="form-group row">
         <div class="col-md-6">

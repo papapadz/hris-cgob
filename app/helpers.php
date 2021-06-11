@@ -32,6 +32,10 @@ use App\Models\EmployeeWorkExperience;
 use App\Models\MFO;
 use App\Models\EmployeeIpcrfRating;
 use App\Models\EmployeePayrollGeneration;
+use App\Models\TrainingType;
+use App\Models\SchoolLevel;
+use App\Models\EligibilityType;
+use App\Models\Plantilla;
 
 if (! function_exists('getEmployeeName')) {
   function getEmployeeName($emp_id) {
@@ -82,7 +86,11 @@ if (! function_exists('listBarangays')) {
 if (! function_exists('getPositions')) {
 
     function getPositions() {
-      return Position::orderBy('position')->get();
+      return Plantilla::select('positions.id','position','sg','level')
+        ->join('positions','plantilla.position_id','=','positions.id')
+        ->groupBy('positions.id','position','sg','level')
+        ->orderBy('position')
+        ->get();
     }
 }
 
@@ -310,6 +318,24 @@ if (! function_exists('getPayrollGenerationItems')) {
       'sum' => $payroll->sum('employee_payroll_generations.value')
     );
     return $data;
+  }
+}
+
+if (! function_exists('getTrainingTypes')) {
+  function getTrainingTypes() {
+    return TrainingType::orderBy('trainingtype')->get();
+  }
+}
+
+if (! function_exists('getSchoolLevels')) {
+  function getSchoolLevels() {
+    return SchoolLevel::orderBy('id')->get();
+  }
+}
+
+if (! function_exists('getEligibilityTypes')) {
+  function getEligibilityTypes() {
+    return EligibilityType::orderBy('eligibility')->get();
   }
 }
 ?>
