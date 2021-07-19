@@ -27,8 +27,8 @@ class EmployeeIpcrfRating extends Model
         return $this->belongsTo(EmployeeIpcrf::class,'id','ipcr_id');
     }
 
-    public function employee() {
-        return $this->hasOne(Employee::class,'emp_id','rating_by');
-    }
+    // public function employee() {
+    //     return $this->hasOne(Employee::class,'emp_id','rating_by');
+    // }
 
 }
