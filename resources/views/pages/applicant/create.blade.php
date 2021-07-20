@@ -57,12 +57,13 @@
                         <div id="new-menu" hidden="true" class="col-12">
                             <form id="form-basic" enctype="multipart/form-data">
                                 @csrf
+                                <input type="number" class="form-control" name="is_applicant" value="1" hidden/>
                                 @include('pages.employee.include.basic-info')
                                 <hr>
                                 @include('pages.employee.include.address-info')
                                 <hr>
                             </form>
-                            <button class="btn btn-success" onclick="next()">Next</button>
+                            <button type="button" class="btn btn-success" onclick="next()">Next</button>
                         </div>
                     </div>
                   </div>
@@ -187,6 +188,7 @@
         }
         
         data += '&emp_id=' + emp_id + '&plantilla_id=' + $("#plantilla").val()
+        console.log(data)
         $.ajax({
             method: "POST",
             url: "{{ url('ajax/set/applicant') }}/"+target+"/save",

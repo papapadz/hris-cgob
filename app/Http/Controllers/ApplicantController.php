@@ -28,7 +28,9 @@ class ApplicantController extends Controller
      */
     public function create()
     {
-        return view('pages.applicant.create')->with('employees',Employee::select('emp_id')->orderBy('lastname')->get());
+        return view('pages.applicant.create')->with([
+                'employees' => Employee::select('emp_id')->orderBy('lastname')->get()
+            ]);
     }
 
     /**

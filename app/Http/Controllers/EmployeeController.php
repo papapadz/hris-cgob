@@ -127,7 +127,9 @@ class EmployeeController extends Controller
     public function createEmployee(Request $request) {
        
         $employee = Employee::create($request->all());
-        Appointment::create($request->all());
+        
+        if(!$request->has('is_applicant'))
+            Appointment::create($request->all());
 
         $filename = FileController::upload($request->file('image'),'img');
         Employee::where('emp_id',$request->emp_id)->update([

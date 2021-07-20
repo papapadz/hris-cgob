@@ -29,4 +29,8 @@ class Position extends Model
     public function position() {
         return $this->belongsTo(Plantilla::class,'position_id','id');
     }
+
+    public function qualification() {
+        return $this->hasONe(PositionQualification::class,'position_id','id');
+    }
 }

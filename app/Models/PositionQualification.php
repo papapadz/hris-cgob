@@ -23,4 +23,12 @@ class PositionQualification extends Model
     
     ];
     
+    public function position() {
+        return $this->belongsTo(Position::class,'position_id','id');
+    }
+
+    public function educationLevel() {
+        return $this->hasOne(SchoolLevel::class,'id','education');
+    }
+
 }

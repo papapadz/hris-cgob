@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class SchoolLevel extends Model
 {
     use HasFactory;
+
+    public function qualification() {
+        return $this->belongsTo(PositionQualification::class,'id','education');
+    }
 }
