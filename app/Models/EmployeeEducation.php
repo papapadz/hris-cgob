@@ -42,6 +42,10 @@ class EmployeeEducation extends Model
         return $this->hasOne(School::class,'id','school_id');
     }
 
+    public function level() {
+        return $this->hasOne(SchoolLevel::class,'id','level');
+    }
+
     public function course() {
         return $this->hasOne(Course::class,'id','course_id');
     }

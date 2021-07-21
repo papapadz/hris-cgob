@@ -130,7 +130,7 @@ class EmployeeController extends Controller
         
         if(!$request->has('is_applicant'))
             Appointment::create($request->all());
-
+        
         $filename = FileController::upload($request->file('image'),'img');
         Employee::where('emp_id',$request->emp_id)->update([
             'image_url' => $filename

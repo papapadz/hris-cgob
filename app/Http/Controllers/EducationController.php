@@ -35,7 +35,7 @@ class EducationController extends Controller
      */
     public function store(Request $request)
     {
-        
+        return EmployeeEducation::create($request->all());
     }
 
     /**

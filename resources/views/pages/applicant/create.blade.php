@@ -80,9 +80,9 @@
                       <div class="form-group row">
                         <table id="table-education" class="table">
                             <th>#</th>
-                            <th>Training Title</th>
-                            <th>Venue</th>
-                            <th>No. of Hrs</th>
+                            <th>Level</th>
+                            <th>School</th>
+                            <th>Year</th>
                             <th></th>
                         </table>
                     </div>
@@ -155,7 +155,7 @@
 <script>
     
     var emp_id
-
+    var counters = [0,0,0,0]
     // var data = {
     //     education: [], workexp: [], training: [], eligibility: []
     // }
@@ -166,36 +166,58 @@
         
         switch(index) {
             case 1:
-                data = $("form[id='form-basic']").serialize()
-                target = 'basic'    
+                data = $("form[id='form-basic']")[0]
+                target = 'basic'
             break
             case 2:
-                data = $("form[id='form-education']").serialize()
-                target = 'education'       
+                data = $("form[id='form-education']")[0]
+                target = 'education'
             break
             case 3:
-                data = $("form[id='form-workexp']").serialize()
-                target = 'work-experience'       
+                data = $("form[id='form-workexp']")[0]
+                target = 'work-experience'
             break
             case 4:
-                data = $("form[id='form-training']").serialize()
-                target = 'training'       
+                data = $("form[id='form-training']")[0]
+                target = 'training'
             break
             case 5:
-                data = $("form[id='form-eligibility']").serialize()
-                target = 'eligibility'       
+                data = $("form[id='form-eligibility']")[0]
+                target = 'eligibility'
             break
         }
         
-        data += '&emp_id=' + emp_id + '&plantilla_id=' + $("#plantilla").val()
-        console.log(data)
+        var formData = new FormData(data)
+        formData.append('emp_id',emp_id)
+        formData.append('plantilla_id',$("#plantilla").val())
+        
         $.ajax({
             method: "POST",
             url: "{{ url('ajax/set/applicant') }}/"+target+"/save",
-            data: data
+            data: formData,
+            contentType: false, 
+            processData: false
         }).done(function(response) {
             
+            switch(index) {
+                case 1:
+                    emp_id = response
+                    $('.nav-tabs a[href="#education"]').tab('show')
+                break
+
+                case 2:
+                    $('#table-education').append(
+                        '<tr>'+
+                        '<td>'+(counters[0]++)+'</td>'+
+                        '<td>'+response.level+'</td>'+
+                        '<td>'+response.school+'</td>'+
+                        '<td>'+response.yearstarted+' - '+response.yeargraduated+'</td>'+
+                        '</tr>'
+                    )
+                break
+            }
         })
+
 
         // var fields = []
         // var matches = []

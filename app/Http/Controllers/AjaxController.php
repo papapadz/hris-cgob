@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Database\Schema\Builder;
 use Illuminate\Support\Str;
 use DB;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Barangay;
 use App\Models\Town;
@@ -193,7 +194,16 @@ class AjaxController extends Controller
         switch($target) {
             case 'basic': 
                 $applicant = new ApplicantController;
-                $applicant->store($request);    
+                $generated_id = 'APP'.Carbon::now()->format('y').'-'.Carbon::now()->format('m').str_pad((Employee::count()+1), 5, "0", STR_PAD_LEFT);
+            
+                $applicant->store($request,$generated_id);    
+                return $generated_id;
+            break;
+
+            case 'education':
+                $education = new EducationController;
+                $val = $education->store($request);
+                return EmployeeEducation::where('id',$val->id)->with('school','level','course')->first();
             break;
         }
     }

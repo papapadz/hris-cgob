@@ -12,4 +12,8 @@ class SchoolLevel extends Model
     public function qualification() {
         return $this->belongsTo(PositionQualification::class,'id','education');
     }
+
+    public function employeeEducation() {
+        return $this->belongsTo(EmployeeEducation::class,'id','level');
+    }
 }

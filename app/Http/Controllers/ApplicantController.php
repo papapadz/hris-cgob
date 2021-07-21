@@ -39,16 +39,12 @@ class ApplicantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $generated_id)
     {
-        if($request->emp_id==0) {
-
-            $generated_id = 'APP'.Carbon::now()->format('y').'-'.Carbon::now()->format('m').str_pad((Employee::count()+1), 5, "0", STR_PAD_LEFT);
-            
+        if($request->emp_id==0)
             $request->merge([
                 'emp_id' => $generated_id
             ]);
-        }
 
         $employee = new EmployeeController;
         return $employee->createEmployee($request);
