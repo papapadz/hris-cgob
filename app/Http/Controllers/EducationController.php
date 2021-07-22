@@ -35,7 +35,14 @@ class EducationController extends Controller
      */
     public function store(Request $request)
     {
-        return EmployeeEducation::create($request->all());
+        $education = EmployeeEducation::create($request->all());
+        
+        $filename = FileController::upload($request->file('file_url'),'docs');
+        EmployeeEducation::where('id',$education->id)->update([
+            'file_url' => $filename
+        ]);
+
+        return EmployeeEducation::find($education->id);
     }
 
     /**
@@ -81,5 +88,9 @@ class EducationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getAll($emp_id) {
+        return EmployeeEducation::where('emp_id',$emp_id)->orderBy('level')->with(['school','level','course'])->get();    
     }
 }

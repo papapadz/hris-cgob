@@ -21,12 +21,15 @@ class EmployeeEligibility extends Model
     ];
     
     protected $dates = [
-        'startdate',
-        'enddate',
         'created_at',
         'updated_at',
         'deleted_at',
     
+    ];
+
+    protected $casts = [
+        'startdate' => 'datetime:Y-m-d',
+        'enddate' => 'datetime:Y-m-d',
     ];
 
     public function eligibilityType() {

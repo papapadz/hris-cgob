@@ -17,6 +17,6 @@ class FileController extends Controller
         $filename = Carbon::now()->getPreciseTimestamp().'.'.$file->getClientOriginalExtension();
         $file->move(public_path($dir), $filename);
 
-        return url($dir.'/').$filename;
+        return $dir.'/'.$filename;
     }
 }

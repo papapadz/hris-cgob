@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\EmployeeWorkExperience;
 
 class WorkExpController extends Controller
 {
@@ -34,7 +35,14 @@ class WorkExpController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $workexp = EmployeeWorkExperience::create($request->all());
+        
+        $filename = FileController::upload($request->file('file_url'),'docs');
+        EmployeeWorkExperience::where('id',$workexp->id)->update([
+            'file_url' => $filename
+        ]);
+
+        return EmployeeWorkExperience::find($workexp->id);
     }
 
     /**
@@ -80,5 +88,9 @@ class WorkExpController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getAll($emp_id) {
+        return EmployeeWorkExperience::where('emp_id',$emp_id)->orderBy('startdate','desc')->with(['position','employmentStat'])->get();    
     }
 }

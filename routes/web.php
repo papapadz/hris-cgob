@@ -22,6 +22,7 @@ Route::group(['middleware' => ['get.menu','auth']], function () {
         Route::get('get/schools/by-level','AjaxController@getSchoolByLevel');
         Route::get('get/courses/by-level','AjaxController@getCoursesByLevel');
         Route::post('set/applicant/{target}/save','AjaxController@setApplicantDetails');
+        Route::post('get/employee/details','AjaxController@getEmployeeDetails');
     });
 
     Route::resources([

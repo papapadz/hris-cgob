@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\EmployeeTraining;
 
 class TrainingController extends Controller
 {
@@ -34,7 +35,14 @@ class TrainingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $training = EmployeeTraining::create($request->all());
+        
+        $filename = FileController::upload($request->file('file_url'),'docs');
+        EmployeeTraining::where('id',$training->id)->update([
+            'file_url' => $filename
+        ]);
+
+        return EmployeeTraining::find($training->id);
     }
 
     /**
@@ -80,5 +88,9 @@ class TrainingController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getAll($emp_id) {
+        return EmployeeTraining::where('emp_id',$emp_id)->orderBy('startdate','desc')->with(['trainingType'])->get();    
     }
 }

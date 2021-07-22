@@ -207,4 +207,25 @@ class AjaxController extends Controller
             break;
         }
     }
+
+    public function getEmployeeDetails(Request $request) {
+        switch($request->target) {
+            case 'education':
+                $education = new EducationController;
+                return $education->getAll($request->emp_id);
+            break;
+            case 'work-experience':
+                $workexp = new WorkExpController;
+                return $workexp->getAll($request->emp_id);
+            break;
+            case 'training':
+                $training = new TrainingController;
+                return $training->getAll($request->emp_id);
+            break;
+            case 'eligibility':
+                $eligibility = new EligibilityController;
+                return $eligibility->getAll($request->emp_id);
+            break;
+        }
+    }
 }

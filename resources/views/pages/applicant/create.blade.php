@@ -82,7 +82,7 @@
                             <th>#</th>
                             <th>Level</th>
                             <th>School</th>
-                            <th>Year</th>
+                            <th>Date</th>
                             <th></th>
                         </table>
                     </div>
@@ -98,9 +98,9 @@
                       <div class="form-group row">
                         <table id="table-workexp" class="table">
                             <th>#</th>
-                            <th>Training Title</th>
-                            <th>Venue</th>
-                            <th>No. of Hrs</th>
+                            <th>Position</th>
+                            <th>Company</th>
+                            <th>Date</th>
                             <th></th>
                         </table>
                     </div>
@@ -117,7 +117,7 @@
                         <table id="table-trainings" class="table">
                             <th>#</th>
                             <th>Training Title</th>
-                            <th>Venue</th>
+                            <th>Type</th>
                             <th>No. of Hrs</th>
                             <th></th>
                         </table>
@@ -134,9 +134,9 @@
                     <div class="form-group row">
                         <table id="table-eligibility" class="table">
                             <th>#</th>
-                            <th>Training Title</th>
-                            <th>Venue</th>
-                            <th>No. of Hrs</th>
+                            <th>Eligibility</th>
+                            <th>Rating</th>
+                            <th>Date</th>
                             <th></th>
                         </table>
                     </div>
@@ -154,8 +154,9 @@
 <!-- GLOBAL -->
 <script>
     
+    var _token = '{{ csrf_token() }}'
     var emp_id
-    var counters = [0,0,0,0]
+    var counters = [1,1,1,1]
     // var data = {
     //     education: [], workexp: [], training: [], eligibility: []
     // }
@@ -206,18 +207,22 @@
                 break
 
                 case 2:
-                    $('#table-education').append(
-                        '<tr>'+
-                        '<td>'+(counters[0]++)+'</td>'+
-                        '<td>'+response.level+'</td>'+
-                        '<td>'+response.school+'</td>'+
-                        '<td>'+response.yearstarted+' - '+response.yeargraduated+'</td>'+
-                        '</tr>'
-                    )
+                    appendEducation(response)
+                break
+
+                case 3:
+                    appendWorkExp(response)
+                break
+
+                case 4:
+                    appendTraining(response)
+                break
+
+                case 5:
+                    appendEligibility(response)
                 break
             }
         })
-
 
         // var fields = []
         // var matches = []
@@ -302,6 +307,86 @@
         $('a.nav-link').removeClass('disabled')
         addDetails(1)
     }
+
+    function getEmpDetails(target) {
+        $.ajax({
+            method: "POST",
+            url: "{{ url('ajax/get/employee/details') }}",
+            data: {
+                _token: _token,
+                emp_id: emp_id,
+                target: target
+            }
+        }).done(function(response){
+            
+            if(response!=null)
+                for(let obj of response) {
+                    switch(target) {
+                        case 'education':
+                            appendEducation(obj)
+                        break
+                        case 'work-experience':
+                            appendWorkExp(obj)
+                        break
+                        case 'training':
+                            appendTraining(obj)
+                        break
+                        case 'eligibility':
+                            appendEligibility(obj)
+                        break
+                    }               
+                }
+        })
+    }
+
+    function appendEducation(arrObj) {
+        console.log(arrObj)
+        $('#table-education').append(
+            '<tr>'+
+            '<td>'+(counters[0]++)+'</td>'+
+            '<td>'+arrObj['course']['course']+'</td>'+
+            '<td>'+arrObj['school']['school']+'</td>'+
+            '<td>'+arrObj['yearstarted']+' to '+arrObj['yeargraduated']+'</td>'+
+            '<td><a target="_blank" href="{{ url("/") }}/'+arrObj['file_url']+'"><i class="cil-file"></i>File</a></td>'+
+            '</tr>'
+        )
+    }
+
+    function appendWorkExp(arrObj) {
+        console.log(arrObj)
+        $('#table-workexp').append(
+            '<tr>'+
+            '<td>'+(counters[1]++)+'</td>'+
+            '<td>'+arrObj['position']['position']+'</td>'+
+            '<td>'+arrObj['company']+'</td>'+
+            '<td>'+arrObj['startdate']+' to '+arrObj['enddate']+'</td>'+
+            '</tr>'
+        )
+    }
+
+    function appendTraining(arrObj) {
+        console.log(arrObj)
+        $('#table-trainings').append(
+            '<tr>'+
+            '<td>'+(counters[2]++)+'</td>'+
+            '<td>'+arrObj['trainingtitle']+'</td>'+
+            '<td>'+arrObj['training_type']['trainingtype']+'</td>'+
+            '<td>'+arrObj['startdate']+' to '+arrObj['enddate']+'</td>'+
+            '</tr>'
+        )
+    }
+
+    function appendEligibility(arrObj) {
+        console.log(arrObj)
+        $('#table-eligibility').append(
+            '<tr>'+
+            '<td>'+(counters[3]++)+'</td>'+
+            '<td>'+arrObj['eligibility_type']['eligibility']+'</td>'+
+            '<td>'+arrObj['rating']+'</td>'+
+            '<td>'+arrObj['startdate']+'</td>'+
+            '</tr>'
+        )
+    }
 </script>
 <!-- BASIC INFO -->
 <script>
@@ -329,6 +414,11 @@ function showAddNew() {
 $('#emp_id').change(function() {
     emp_id = $(this).val()
     $('a.nav-link').removeClass('disabled')
+    $('.nav-tabs a[href="#education"]').tab('show')
+    getEmpDetails('education')
+    getEmpDetails('work-experience')
+    getEmpDetails('training')
+    getEmpDetails('eligibility')
 })
 </script>
 

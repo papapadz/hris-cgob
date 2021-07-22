@@ -24,12 +24,15 @@ class EmployeeEducation extends Model
     
     
     protected $dates = [
-        'yearstarted',
-        'yeargraduated',
         'created_at',
         'updated_at',
         'deleted_at',
     
+    ];
+
+    protected $casts = [
+        'yearstarted' => 'datetime:Y-m-d',
+        'yeargraduated' => 'datetime:Y-m-d',
     ];
 
     /* ************************ ACCESSOR ************************* */

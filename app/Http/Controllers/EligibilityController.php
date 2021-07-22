@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\EmployeeEligibility;
 
 class EligibilityController extends Controller
 {
@@ -34,7 +35,14 @@ class EligibilityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $eligibility = EmployeeEligibility::create($request->all());
+        
+        $filename = FileController::upload($request->file('file_url'),'docs');
+        EmployeeEligibility::where('id',$eligibility->id)->update([
+            'file_url' => $filename
+        ]);
+
+        return EmployeeEligibility::find($eligibility->id);
     }
 
     /**
@@ -80,5 +88,9 @@ class EligibilityController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getAll($emp_id) {
+        return EmployeeEligibility::where('emp_id',$emp_id)->orderBy('startdate','desc')->with(['eligibilityType'])->get();    
     }
 }

@@ -21,13 +21,16 @@ class EmployeeTraining extends Model
     
     
     protected $dates = [
-        'startdate',
-        'enddate',
         'created_at',
         'updated_at',
     
     ];
     
+    protected $casts = [
+        'startdate' => 'datetime:Y-m-d',
+        'enddate' => 'datetime:Y-m-d',
+    ];
+
     public function trainingType() {
         return $this->hasOne(TrainingType::class,'id','trainingtype_id');
     }
