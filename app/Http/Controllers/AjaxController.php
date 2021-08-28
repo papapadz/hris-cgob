@@ -16,6 +16,8 @@ use App\Models\EmployeeWorkExperience;
 use App\Models\EmployeeEducation;
 use App\Models\School;
 use App\Models\Course;
+use App\Models\EmployeeTraining;
+use App\Models\EmployeeEligibility;
 
 class AjaxController extends Controller
 {
@@ -193,17 +195,35 @@ class AjaxController extends Controller
         
         switch($target) {
             case 'basic': 
-                $applicant = new ApplicantController;
+                $model_instance = new ApplicantController;
                 $generated_id = 'APP'.Carbon::now()->format('y').'-'.Carbon::now()->format('m').str_pad((Employee::count()+1), 5, "0", STR_PAD_LEFT);
             
-                $applicant->store($request,$generated_id);    
+                $model_instance->new($request,$generated_id);    
                 return $generated_id;
             break;
 
             case 'education':
-                $education = new EducationController;
-                $val = $education->store($request);
+                $model_instance = new EducationController;
+                $val = $model_instance->store($request);
                 return EmployeeEducation::where('id',$val->id)->with('school','level','course')->first();
+            break;
+
+            case 'work-experience':
+                $model_instance = new WorkExpController;
+                $val = $model_instance->store($request);
+                return EmployeeWorkExperience::where('id',$val->id)->with('position','employmentStat')->first();
+            break;
+
+            case 'training':
+                $model_instance = new TrainingController;
+                $val = $model_instance->store($request);
+                return EmployeeTraining::where('id',$val->id)->with('trainingType')->first();
+            break;
+
+            case 'eligibility':
+                $model_instance = new EligibilityController;
+                $val = $model_instance->store($request);
+                return EmployeeEligibility::where('id',$val->id)->with('eligibilityType')->first();
             break;
         }
     }
@@ -211,20 +231,20 @@ class AjaxController extends Controller
     public function getEmployeeDetails(Request $request) {
         switch($request->target) {
             case 'education':
-                $education = new EducationController;
-                return $education->getAll($request->emp_id);
+                $controller = new EducationController;
+                return $controller->getAll($request->emp_id);
             break;
             case 'work-experience':
-                $workexp = new WorkExpController;
-                return $workexp->getAll($request->emp_id);
+                $controller = new WorkExpController;
+                return $controller->getAll($request->emp_id);
             break;
             case 'training':
-                $training = new TrainingController;
-                return $training->getAll($request->emp_id);
+                $controller = new TrainingController;
+                return $controller->getAll($request->emp_id);
             break;
             case 'eligibility':
-                $eligibility = new EligibilityController;
-                return $eligibility->getAll($request->emp_id);
+                $controller = new EligibilityController;
+                return $controller->getAll($request->emp_id);
             break;
         }
     }

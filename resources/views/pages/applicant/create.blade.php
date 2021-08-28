@@ -20,6 +20,7 @@
               <li class="nav-item"><a class="nav-link disabled" data-toggle="tab" href="#workexp" role="tab" aria-controls="address">Work Experience</a></li>
               <li class="nav-item"><a class="nav-link disabled" data-toggle="tab" href="#training" role="tab" aria-controls="training">Trainings</a></li>
               <li class="nav-item"><a class="nav-link disabled" data-toggle="tab" href="#eligibility" role="tab" aria-controls="eligibility">Eligibility</a></li>
+              <li class="nav-item bg-success"><a class="nav-link text-white" data-toggle="tab" href="#save" role="tab" aria-controls="save">Save</a></li>
             </ul>
             {{-- <form id="employment-info" method="POST" action="{{ route('applicants.store') }}" enctype="multipart/form-data"> --}}
               
@@ -100,6 +101,7 @@
                             <th>#</th>
                             <th>Position</th>
                             <th>Company</th>
+                            <th>Status</th>
                             <th>Date</th>
                             <th></th>
                         </table>
@@ -141,6 +143,11 @@
                         </table>
                     </div>
                   </div>
+
+                  <div class="tab-pane" id="save" role="tabpanel">
+                    <p>Are you sure you want to save these details?</p>
+                    <button class="btn btn-success" type="button" onclick="saveApplicant()">Save</button>
+                  </div>
                 </div>
             {{-- </form> --}}
         </div>
@@ -157,9 +164,30 @@
     var _token = '{{ csrf_token() }}'
     var emp_id
     var counters = [1,1,1,1]
+    var is_outsider = 0
     // var data = {
     //     education: [], workexp: [], training: [], eligibility: []
     // }
+    
+    function saveApplicant() {
+        $.ajax({
+            method: "POST",
+            url: "{{ url('ajax/applicant/save') }}",
+            data: {
+                _token: _token,
+                applicant_id: emp_id,
+                plantilla_id: $("#plantilla").val(),
+                is_outsider: is_outsider
+            },
+            contentType: false, 
+            processData: false
+        }).done(function(response) {
+            
+            fireAlert('success','Application record has been saved!')
+            window.location.replace('{{ url("applicants") }}')
+        })
+    }
+
     function addDetails(index) {
         
         var data = null
@@ -304,6 +332,7 @@
 
     function next() {
         emp_id = 0
+        is_outsider = 1
         $('a.nav-link').removeClass('disabled')
         addDetails(1)
     }
@@ -359,6 +388,7 @@
             '<td>'+(counters[1]++)+'</td>'+
             '<td>'+arrObj['position']['position']+'</td>'+
             '<td>'+arrObj['company']+'</td>'+
+            '<td>'+arrObj['employment_stat']['employmenttype']+'</td>'+
             '<td>'+arrObj['startdate']+' to '+arrObj['enddate']+'</td>'+
             '</tr>'
         )
@@ -371,7 +401,7 @@
             '<td>'+(counters[2]++)+'</td>'+
             '<td>'+arrObj['trainingtitle']+'</td>'+
             '<td>'+arrObj['training_type']['trainingtype']+'</td>'+
-            '<td>'+arrObj['startdate']+' to '+arrObj['enddate']+'</td>'+
+            '<td>'+arrObj['hrs']+'</td>'+
             '</tr>'
         )
     }

@@ -51,7 +51,7 @@
 <div class="form-group row">
     <div class="col-md-4">
         <div class="form-check">
-            <input type="checkbox" class="form-check-input form-workexp" name="isgovernment">
+            <input type="checkbox" class="form-check-input form-workexp" value="1" name="isgovernment">
             <label class="form-check-label" for="exampleCheck1">Government?</label>
         </div>
     </div>

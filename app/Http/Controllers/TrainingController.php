@@ -37,7 +37,7 @@ class TrainingController extends Controller
     {
         $training = EmployeeTraining::create($request->all());
         
-        $filename = FileController::upload($request->file('file_url'),'docs');
+        $filename = FileController::upload($request->file('file'),'docs');
         EmployeeTraining::where('id',$training->id)->update([
             'file_url' => $filename
         ]);

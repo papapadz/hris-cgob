@@ -39,8 +39,13 @@ class ApplicantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $generated_id)
+    public function store(Request $request)
     {
+        return Applicant::create($request->all());
+    }
+
+    public function new(Request $request, $generated_id) {
+
         if($request->emp_id==0)
             $request->merge([
                 'emp_id' => $generated_id

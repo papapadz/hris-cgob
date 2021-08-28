@@ -24,7 +24,7 @@ class CreateEmployeeWorkExperiencesTable extends Migration
             $table->integer('sg')->nullable();
             $table->integer('step')->nullable();
             $table->bigInteger('employmenttype_id');
-            $table->boolean('isgovernment');
+            $table->boolean('isgovernment')->default(false);
             $table->string('file_url',100)->nullable();
             $table->timestamps();
         });
